@@ -1,0 +1,27 @@
+.card {
+  display: grid;
+  gap: var(--s-2);
+}
+
+/* The mark follows the label as a word in the line, outside the label itself. */
+.toggle :global(.check) {
+  display: inline-flex;
+}
+
+.field {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.field .note {
+  min-block-size: 0;
+  font-family: var(--font-voice);
+  font-size: 1.125rem;
+  font-style: normal;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.count {
+  justify-self: end;
+}

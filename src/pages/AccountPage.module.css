@@ -1,0 +1,123 @@
+.layout {
+  row-gap: var(--s-8);
+  align-items: start;
+}
+
+.orders,
+.side {
+  grid-column: 1 / -1;
+}
+
+.side {
+  display: grid;
+  gap: var(--s-8);
+}
+
+@media (min-width: 768px) {
+  .orders {
+    grid-column: 1 / span 5;
+  }
+
+  .side {
+    grid-column: 6 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .orders {
+    grid-column: 1 / span 7;
+  }
+
+  .side {
+    grid-column: 9 / -1;
+  }
+}
+
+.h2 {
+  margin-bottom: var(--s-4);
+  font-size: var(--t-lead);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Orders --------------------------------------------------------------- */
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-5);
+}
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-4);
+}
+
+.orderMain {
+  display: grid;
+  gap: var(--s-1);
+}
+
+/* Which colours: one 12px chip and the nickname per colour. */
+.colours {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-1) var(--s-4);
+}
+
+.colourTag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+.colourTag :global(.chip) {
+  align-self: center;
+}
+
+.reference {
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.total {
+  flex: none;
+  font-size: var(--t-ui);
+  font-weight: 500;
+}
+
+/* Saved ---------------------------------------------------------------- */
+
+.savedList {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+  margin-top: var(--s-2);
+  font-size: var(--t-small);
+}
+
+/* Details -------------------------------------------------------------- */
+
+.details {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.name {
+  font-weight: 500;
+}
+
+.address {
+  display: grid;
+  margin-bottom: var(--s-3);
+  font-style: normal;
+}

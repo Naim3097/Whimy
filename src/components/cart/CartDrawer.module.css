@@ -1,0 +1,76 @@
+.bag :global(.dialog-head h2) {
+  font-size: var(--t-ui);
+  font-weight: 500;
+}
+
+.body,
+.emptyBody {
+  padding-inline: 20px;
+}
+
+.body {
+  padding-block-end: var(--s-6);
+}
+
+.emptyBody {
+  padding-block: var(--s-6) var(--s-7);
+}
+
+.lastUndo.lastUndo {
+  margin-block: calc(-1 * var(--s-6)) var(--s-6);
+  border-top: 0;
+}
+
+/* Under the drawer head's hairline the lines need no top rule of their own (doubled to outrank CartLines). */
+.lines.lines {
+  border-top: 0;
+}
+
+.added {
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: var(--t-ui);
+  line-height: 1.5;
+}
+
+.extras {
+  display: grid;
+  gap: var(--s-6);
+  padding-block-start: var(--s-6);
+}
+
+.sums {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.blocked {
+  color: var(--error);
+}
+
+.foot {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: center;
+  padding: var(--s-4) 20px var(--s-3);
+}
+
+.viewBag {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+@media (min-width: 768px) {
+  /* The drawer's edge against the page; full screen on phones, it has none. Doubled to outrank `dialog.surface { border: 0 }`. */
+  .bag.bag {
+    border-inline-start: 1px solid var(--line-strong);
+  }
+
+  .body,
+  .emptyBody,
+  .foot {
+    padding-inline: var(--s-5);
+  }
+}

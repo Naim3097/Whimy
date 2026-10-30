@@ -1,0 +1,55 @@
+.nudge {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.line {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+/* Side by side where two fit (the bag page), stacked in the drawer and on phones. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: var(--s-4) var(--s-5);
+}
+
+/*
+ * The row is the mini card plus its "Choose a size": the card's link layer is
+ * moved from the card to this row (position: static below), so one link covers both.
+ */
+.offer {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--s-4);
+}
+
+.card.card {
+  position: static;
+}
+
+.cta {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  white-space: nowrap;
+  transition: text-underline-offset var(--dur-1) var(--ease-std);
+}
+
+.offer:hover .cta {
+  color: var(--action);
+  text-underline-offset: 3px;
+}
+
+/* The focus ring goes round the whole row, not just the card inside it. */
+.offer .card.card:has(:focus-visible) {
+  outline: none;
+}
+
+.offer:has(a:focus-visible) {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+}

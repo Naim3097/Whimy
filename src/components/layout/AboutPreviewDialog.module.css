@@ -1,0 +1,122 @@
+/* Content inset matches the dialog head: 20px on phones, 24px from 768px. */
+.body {
+  display: grid;
+  gap: var(--s-6);
+  padding: var(--s-5) 20px var(--s-6);
+}
+
+@media (min-width: 768px) {
+  .body {
+    padding-inline: var(--s-5);
+  }
+}
+
+.intro {
+  max-inline-size: var(--measure);
+  font-size: var(--t-body);
+  line-height: 1.6;
+}
+
+.title {
+  margin-bottom: var(--s-2);
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.hint {
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+/* The legend: each mark exactly as it appears on the page, then what it means. */
+.legend {
+  border-top: 1px solid var(--line);
+}
+
+/* Baseline: each 12px mark sits on the first line of its 13px definition. */
+.legend > div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: var(--s-4);
+  padding-block: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.legend dd {
+  margin: 0;
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.mark,
+.caption {
+  font-size: var(--t-cap);
+  line-height: 1.6;
+}
+
+.mark {
+  color: var(--olive);
+}
+
+.caption {
+  color: var(--ink-2);
+}
+
+.option {
+  display: grid;
+  gap: 2px;
+}
+
+.list {
+  display: grid;
+  gap: var(--s-3);
+  font-size: var(--t-ui);
+  line-height: 1.45;
+}
+
+.code {
+  font-family: var(--font-ui);
+  font-size: inherit;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.questions {
+  columns: 2;
+  column-gap: var(--s-5);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.questions li {
+  padding-block: 3px;
+  break-inside: avoid;
+}
+
+/* Start again: last in the dialog, a text control rather than a pinned button. */
+.reset {
+  display: grid;
+  gap: var(--s-1);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+
+.reset .title {
+  margin-bottom: 0;
+}
+
+.reset .resetButton {
+  padding-block: 12px;
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.reset .resetButton[data-armed] {
+  color: var(--error);
+}

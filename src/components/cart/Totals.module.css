@@ -1,0 +1,88 @@
+.totals {
+  margin: 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--t-ui);
+  line-height: 1.4;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-block: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.row dt {
+  color: var(--ink-2);
+}
+
+.row dd {
+  margin: 0;
+  text-align: right;
+}
+
+.total {
+  padding-block: var(--s-4);
+  font-size: var(--t-lead);
+  font-weight: 500;
+}
+
+.total dt {
+  color: var(--ink);
+}
+
+/* Have a code? */
+.promo {
+  display: grid;
+  gap: var(--s-2);
+}
+
+/* Focus rests here only after a code is removed with nothing left to land on; it is not a control. */
+.promo:focus {
+  outline: none;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-block-size: 44px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s-2);
+}
+
+.applied {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--s-4);
+  min-block-size: 44px;
+}
+
+.code {
+  font-weight: 500;
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+/* All three in the bag: the set code, one tap away. */
+.offer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--s-4);
+  min-block-size: 44px;
+  color: var(--ink);
+}

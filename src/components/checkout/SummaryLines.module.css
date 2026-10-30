@@ -1,0 +1,42 @@
+.lines {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  column-gap: var(--s-4);
+  align-items: start;
+}
+
+.thumb {
+  display: block;
+  inline-size: 64px;
+  aspect-ratio: 4 / 5;
+}
+
+.blank {
+  background: var(--studio);
+}
+
+.text {
+  display: grid;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+/* Name left, price on the same right edge as the totals below, at every width. */
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: var(--s-4);
+}
+
+.price {
+  justify-self: end;
+  font-size: var(--t-small);
+  font-weight: 500;
+  white-space: nowrap;
+}

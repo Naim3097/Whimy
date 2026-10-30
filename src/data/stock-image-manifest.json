@@ -1,0 +1,45 @@
+{
+  "klcc-towers": {
+    "width": 3200,
+    "height": 2134,
+    "dominant": "#C8D8E8",
+    "sizes": [
+      {
+        "file": "klcc-towers-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 25374
+      },
+      {
+        "file": "klcc-towers-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 86926
+      },
+      {
+        "file": "klcc-towers-1440.webp",
+        "width": 1440,
+        "height": 960,
+        "bytes": 185382
+      },
+      {
+        "file": "klcc-towers-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "bytes": 314662
+      },
+      {
+        "file": "klcc-towers-2560.webp",
+        "width": 2560,
+        "height": 1707,
+        "bytes": 514456
+      },
+      {
+        "file": "klcc-towers-3200.webp",
+        "width": 3200,
+        "height": 2134,
+        "bytes": 725522
+      }
+    ]
+  }
+}

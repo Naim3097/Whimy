@@ -1,0 +1,51 @@
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* The coin's own rim sits just inside the frame, a little below centre. */
+/* DESIGN.md §7: coin 28px + word 20px in the 56px header, 32px + 24px from 1024px. */
+.coin {
+  flex: none;
+  inline-size: 28px;
+  block-size: 28px;
+  background: var(--ivory);
+  clip-path: circle(48% at 50% 51%);
+}
+
+.word {
+  font-family: var(--font-voice);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  translate: 0 -0.04em;
+}
+
+@media (min-width: 1024px) {
+  .coin {
+    inline-size: 32px;
+    block-size: 32px;
+  }
+
+  .word {
+    font-size: 1.5rem;
+  }
+}
+
+.compact {
+  gap: 8px;
+}
+
+.compact .coin {
+  inline-size: 28px;
+  block-size: 28px;
+}
+
+.compact .word {
+  font-size: 1.25rem;
+}

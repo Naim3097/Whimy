@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-MY">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F8F5EF" />
+    <meta
+      name="description"
+      content="Whimy, the heels of that girl next door. Petals Heels: pointed satin slingbacks with a layered organza flower, in Rich Brown, Blush Pink and Sage Green. Based in Kuala Lumpur, Malaysia."
+    />
+    <title>Whimy | The Heels of That Girl Next Door</title>
+    <script>
+      // Each homepage's first image, fetched before the app boots. srcset, sizes and media must match
+      // the page exactly (HomeA.tsx slide 1, HomeB.tsx campaign), or the browser downloads it twice.
+      // Homepage B's is art-directed, so it has one preload per frame, each for its own screens.
+      // src/data/registry.test.ts checks these widths against the image manifests.
+      var lcp = {
+        '/': [
+          ['concept', 'meadow-wide', [480, 960, 1440, 1920, 2560, 2752], '100vw', '(min-width: 1024px), (min-aspect-ratio: 4/5)'],
+          ['concept', 'meadow-tall', [480, 960, 1440, 1920, 2560, 3200], '100vw', '(width < 1024px) and (aspect-ratio < 4/5)'],
+        ],
+        '/concept-a': [['whimy', 'brown-scale-play', [480, 960, 1440, 1920], '(min-width: 768px) 50vw, 100vw', '']],
+      }[location.pathname];
+      (lcp || []).forEach(function (p) {
+        var file = function (w) { return '/images/' + p[0] + '/' + p[1] + '-' + w + '.webp'; };
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.setAttribute('fetchpriority', 'high');
+        link.setAttribute('imagesrcset', p[2].map(function (w) { return file(w) + ' ' + w + 'w'; }).join(', '));
+        link.setAttribute('imagesizes', p[3]);
+        if (p[4]) link.media = p[4];
+        link.href = file(p[2][p[2].length - 1]);
+        document.head.appendChild(link);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

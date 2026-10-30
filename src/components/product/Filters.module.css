@@ -1,0 +1,328 @@
+/* The filter bar: count, three text buttons with popovers, sort. Never a sidebar. */
+.listing {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.barWrap {
+  display: grid;
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--s-5);
+  border-block: 1px solid var(--line);
+}
+
+.count {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+.facets {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  order: 3;
+  column-gap: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .bar {
+    min-block-size: 56px;
+  }
+
+  .count {
+    flex: none;
+    margin-inline-end: var(--s-3);
+  }
+
+  .facets {
+    flex: 0 1 auto;
+    order: 0;
+    border-top: 0;
+  }
+}
+
+.facet {
+  display: contents;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-block-size: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  anchor-name: var(--anchor);
+  transition:
+    color var(--dur-1) var(--ease-std),
+    text-decoration-color var(--dur-1) var(--ease-std),
+    text-underline-offset var(--dur-1) var(--ease-std);
+}
+
+.trigger:hover,
+.trigger:focus-visible,
+.trigger:has(+ .popover:popover-open) {
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+}
+
+.caret {
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+.sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin-inline-start: auto;
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+/* The select draws no chevron of its own and is only as wide as its value, so the caret sits 6px after it. */
+.sortField {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.sortSelect {
+  min-block-size: 44px;
+  padding: 0 20px 0 var(--s-1);
+  border: 0;
+  border-radius: var(--radius-control);
+  appearance: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  field-sizing: content;
+  cursor: pointer;
+}
+
+/* iOS zooms the page into any field set under 16px when it is tapped. */
+@media (pointer: coarse) {
+  .sortSelect {
+    font-size: 1rem;
+  }
+}
+
+.sortCaret {
+  position: absolute;
+  inset-inline-end: 0;
+  pointer-events: none;
+}
+
+/* Popovers ---------------------------------------------------------------- */
+
+/* Without anchor positioning the popover centres in the viewport. */
+.popover {
+  inset: 0;
+  inline-size: 320px;
+  max-inline-size: calc(100vw - 2 * var(--margin));
+  max-block-size: min(70dvh, 480px);
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+  opacity: 0;
+  translate: 0 8px;
+  transition:
+    opacity var(--dur-2) var(--ease-std),
+    translate var(--dur-2) var(--ease-std),
+    overlay var(--dur-2) allow-discrete,
+    display var(--dur-2) allow-discrete;
+}
+
+.popover:popover-open {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
+  .popover:popover-open {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+.popover::backdrop {
+  background: transparent;
+}
+
+/* The size facet grows to hold every square on one row (six need 328px). */
+@media (min-width: 768px) {
+  .popover[data-fit] {
+    inline-size: max-content;
+    min-inline-size: 320px;
+  }
+}
+
+@supports (position-area: bottom) {
+  .popover {
+    inset: auto;
+    margin: var(--s-2) 0 0;
+    position-anchor: var(--anchor);
+    position-area: bottom span-right;
+    position-try-fallbacks: flip-inline;
+  }
+}
+
+/* Phones: a bottom sheet over the scrim. */
+@media (max-width: 767px) {
+  .popover {
+    inset: auto 0 0;
+    inline-size: 100%;
+    max-inline-size: none;
+    max-block-size: 80dvh;
+    margin: 0;
+    padding-block-end: env(safe-area-inset-bottom);
+    border-width: 1px 0 0;
+    background: var(--ivory);
+    position-area: none;
+  }
+
+  .popover::backdrop {
+    background: rgba(37, 17, 7, 0.36);
+  }
+}
+
+.popHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-block-size: 52px;
+  padding-inline: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+/*
+ * "Close": a 44px target round a short word, the padding widening it and the
+ * margins keeping the word in place. It sits 3.5px under the popover's top
+ * edge, which clips (the popover scrolls), so its ring is drawn inside.
+ */
+.popHead :global(.link) {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+  margin-inline: calc(-1 * var(--s-2));
+  padding-inline: var(--s-2);
+}
+
+.popHead :global(.link):focus-visible {
+  outline-offset: -2px;
+}
+
+.popBody {
+  padding: var(--s-2) var(--s-4) var(--s-4);
+}
+
+.option {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--s-2);
+}
+
+.option :global(.chip) {
+  align-self: center;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-block-start: var(--s-3);
+}
+
+.size {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 48px;
+  block-size: 48px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-1) var(--ease-std),
+    border-color var(--dur-1) var(--ease-std),
+    color var(--dur-1) var(--ease-std);
+}
+
+.size:hover {
+  border-color: var(--ink);
+}
+
+.size:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.size:has(input:focus-visible) {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+}
+
+/* Active filters and the rest ------------------------------------------- */
+
+.active {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--s-5);
+  padding-block-start: var(--s-2);
+}
+
+/* A flex box drops the space in "Brown ×"; the gap puts it back. */
+.remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  min-block-size: 44px;
+}
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-2);
+  padding-block: var(--s-7);
+}
+
+.empty :global(.link) {
+  min-block-size: 44px;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  padding-block-start: var(--s-5);
+}

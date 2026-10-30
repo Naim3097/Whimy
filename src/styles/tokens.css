@@ -1,0 +1,170 @@
+/*
+ * Whimy design tokens.
+ * Every colour is sampled from Whimy's own work: the ivory patch, the
+ * champagne W coin, Rich Brown's shadow, the embroidery pink, the painted sky.
+ *
+ * Two homepage concepts share these tokens. Each adds one band colour for its
+ * bar and footer: A (after Christy Ng) the deeper embroidery rose, B (after
+ * Jimmy Choo) Rich Brown's darkest shade.
+ *
+ * Breakpoints are literal in media queries: 768 / 1024 / 1280px.
+ * Type tokens are font sizes; the .t-* / .v-* / .sc / .letter classes in
+ * components.css carry the matching family, weight and line height.
+ */
+
+/* Drives only the swatch fill transition (set per colourway by accent.ts). */
+@property --accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #744630;
+}
+
+:root {
+  /* Colour */
+  --paper: #f8f5ef;
+  --ivory: #efe9de;
+  --champagne: #d7c5a5;
+  --line: var(--champagne);
+  --ink: #251107;
+  --ink-2: #6e5c4e;
+  --line-strong: #8f7a63;
+  --action: #744630;
+  --olive: #646021;
+  --rose: #f0b6c3;
+  --rose-deep: #d5a6aa;
+  --sky: #b0c2d7;
+  --turf: #355d1e;
+  --studio: #d4d3cf;
+  --swatch-choco: #744630;
+  --swatch-strawberry: #f1c2c5;
+  --swatch-kiwi: #b4bc80;
+  --error: #a3361f;
+  --scrim: rgba(37, 17, 7, 0.36);
+  --accent: var(--swatch-choco);
+
+  /* Concept bands: A's announcement and footer, B's utility bar and footer */
+  --band-a: var(--rose-deep);
+  --band-a-ink: var(--ink);
+  --band-b: var(--ink);
+  --band-b-ink: var(--paper);
+
+  /* Families */
+  --font-voice: 'IM Fell English', 'IM Fell English Fallback', 'Iowan Old Style', Georgia, serif;
+  --font-sc: 'IM Fell English SC', Georgia, serif;
+  --font-ui: 'Libre Franklin Variable', 'Libre Franklin', 'Franklin Gothic Medium', 'Segoe UI', system-ui, sans-serif;
+
+  /* Franklin scale (interface: 12-26px) */
+  --t-cap: 0.75rem;
+  --t-small: 0.8125rem;
+  --t-ui: 0.875rem;
+  --t-body: 1rem;
+  --t-lead: 1.125rem;
+  --t-title: 1.625rem;
+
+  /* Capitals: Franklin set in caps for buttons and labels, tracked a little (Christy Ng sets 1px on 12px) */
+  --caps-tracking: 0.08em;
+
+  /* Fell italic voice scale */
+  --v-0: 1.125rem;
+  --v-1: clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem);
+  --v-2: clamp(1.75rem, 1.45rem + 1vw, 2.25rem);
+  --v-3: clamp(2.25rem, 1.7rem + 1.8vw, 3.25rem);
+  --v-cover: clamp(2.5rem, 1.2rem + 3vw, 4rem);
+
+  /* Concept A: the colour name on the hero, and the caps section headings */
+  --a-hero: clamp(3.5rem, 2rem + 5vw, 7rem);
+  --a-heading: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);
+
+  /* Concept B: Jimmy Choo's two working sizes, the caption title and its line */
+  --b-title: 1.125rem;
+  --b-text: 0.875rem;
+
+  /* Fell SC label and Fell Roman letter body */
+  --sc: 0.875rem;
+  --sc-tracking: 0.14em;
+  --letter: 1.1875rem;
+
+  /* Spacing, 4px base */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 144px;
+
+  /* Grid (phone first; see the media queries below) */
+  --columns: 4;
+  --gutter: 12px;
+  --margin: 20px;
+  --measure: 56ch;
+  --cover-max: 1640px;
+  --utility-max: 1200px;
+  --checkout-max: 1040px;
+  --drawer-w: 440px;
+
+  /* Chrome */
+  --header-h: 56px;
+  --announce-h: 32px;
+  /* B's utility bar: Jimmy Choo's 26px. */
+  --b-bar-h: 26px;
+
+  /* Shape: square everywhere, as in both references */
+  --radius-control: 0;
+
+  /* Motion */
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --dur-4: 600ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-slide: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layers (dialogs and toasts also use the native top layer) */
+  --z-header: 10;
+  --z-panel: 20;
+  --z-sticky: 30;
+  --z-toast: 40;
+  --z-skip: 50;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --letter: 1.125rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --columns: 8;
+    --gutter: 20px;
+    --margin: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --columns: 12;
+    --gutter: 24px;
+    --margin: clamp(24px, 3.5vw, 64px);
+    --header-h: 64px;
+  }
+}
+
+/* A's header is Christy Ng's 50px at every width (Layout sets the concept on the root). */
+:root[data-concept='a'] {
+  --header-h: 50px;
+}
+
+/* Slides and longer fades go instant; only the 120ms colour and opacity changes remain. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-2: 0ms;
+    --dur-3: 0ms;
+    --dur-4: 0ms;
+  }
+}

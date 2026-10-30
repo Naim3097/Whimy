@@ -1,0 +1,612 @@
+/*
+ * Concept B, after Jimmy Choo. Measures come from the October 2026 study of
+ * jimmychoo.com: an 18px/600 caption title and a 14px line with a soft shadow,
+ * bottom-left with a 32px inset; 4px seams between edge-to-edge blocks; 4:5
+ * doors; one 16:9 scene; a text-only services row. No colour of its own: the
+ * photographs bring Whimy's three.
+ */
+
+.home {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+
+/* Captions laid on photographs: Jimmy Choo's sizes and its 25% shadow. */
+.title {
+  font-size: var(--b-title);
+  font-weight: 600;
+  line-height: 1.22;
+}
+
+.line {
+  margin-top: var(--s-1);
+  max-inline-size: 30ch;
+  font-size: var(--b-text);
+  line-height: 1.3;
+}
+
+.caption {
+  position: absolute;
+  inset: auto auto var(--s-7) var(--margin);
+  display: grid;
+  justify-items: start;
+  color: var(--paper);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* The scene's words follow its photograph, in ink: Jimmy Choo's banner carries none on it. */
+.sceneCaption {
+  display: grid;
+  justify-items: start;
+  padding: var(--s-5) var(--margin) 0;
+}
+
+.caption :global(.cta-line),
+.sceneCaption :global(.cta-line) {
+  margin-top: var(--s-5);
+}
+
+.caption :focus-visible {
+  outline-color: currentColor;
+}
+
+/* 1. The campaign, under the clear header ------------------------------ */
+
+/* The controls take the tone of the slide they sit on. */
+.campaign {
+  --tone: var(--paper);
+  position: relative;
+  container-type: inline-size;
+  margin-top: calc(-1 * var(--header-h));
+  overflow: clip;
+}
+
+.campaign[data-tone='ink'] {
+  --tone: var(--ink);
+}
+
+.track {
+  display: flex;
+  touch-action: pan-y;
+  transform: translateX(calc(var(--index) * -100%));
+  transition: transform 500ms var(--ease-slide);
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-inline-size: 0;
+}
+
+/* Phones and tablets: 32px up as on Jimmy Choo's phones, beside the buttons (the film's caption;
+   the meadow's sits higher, in its sky: .skyCaption). */
+.caption {
+  inset-block-end: 32px;
+  max-inline-size: calc(100% - 2 * var(--margin) - 3 * 44px);
+}
+
+/* Below 1024px: the photograph's 3:4, never taller than the screen under the bar, so the bars
+   stay in the first screen (an iPad held upright). Each slide stands on its foot, so a shorter
+   campaign cuts sky at the top and keeps the shoes. */
+@media (max-width: 1023px) {
+  /* A definite width: with an auto width, Chrome carries the height cap over to the width
+     through the aspect ratio, and a short screen would get a narrow campaign. */
+  .campaign {
+    inline-size: 100%;
+    aspect-ratio: 3 / 4;
+    max-block-size: calc(100svh - var(--b-bar-h));
+    min-block-size: 0;
+  }
+
+  .track,
+  .slide {
+    block-size: 100%;
+  }
+
+  .slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .caption :global(.cta-line) {
+    margin-top: var(--s-4);
+  }
+}
+
+/* The narrowest phones keep two lines of caption by dropping the arrows: they swipe, or tap a bar. */
+@media (max-width: 399px) {
+  .caption {
+    max-inline-size: calc(100% - 2 * var(--margin) - 44px);
+  }
+
+  .buttons .arrow {
+    display: none;
+  }
+}
+
+.slide[data-tone='ink'] .caption {
+  color: var(--ink);
+  text-shadow: none;
+}
+
+/* The provenance mark reads in the caption's own ink over the film. */
+.caption .captionMark {
+  color: inherit;
+}
+
+.campaignPanel,
+.filmLink {
+  display: block;
+}
+
+/* The 4:5 frame in a 3:4 box: a sliver off each side; the shoes and her head kept. */
+.campaignImg {
+  --meadow-pos: 50% 50%;
+  aspect-ratio: 3 / 4;
+}
+
+/* Below 1024px the 3:4 file, cut from the left of the frame; the 16:9 poster crops to the same side. */
+.film {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 0% 50%;
+  background: var(--sky);
+}
+
+/* Pause and the arrows bottom-right, two bars along the foot (Jimmy Choo's 24px glyphs, dimming
+   on hover). Jimmy Choo keeps its film's pause bottom-left; here it joins the arrows, which
+   leaves the caption's corner clear. The band lets clicks through to the slide. The meadow's
+   foot is clover, grass blades and white quilt, where no single colour holds, so the controls
+   bring their own ground: the buttons sit on a paper plate and the bars' track is paper, which
+   keeps the ink glyphs and fill at full contrast on either slide. */
+.controls {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  color: var(--tone);
+  pointer-events: none;
+}
+
+.controls button {
+  pointer-events: auto;
+}
+
+.controls :focus-visible {
+  outline-color: currentColor;
+  outline-offset: -2px;
+}
+
+.control {
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  transition: opacity var(--dur-1) var(--ease-std);
+}
+
+.control svg {
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+.control:hover {
+  opacity: 0.6;
+}
+
+.buttons {
+  position: absolute;
+  inset: auto var(--margin) 24px auto;
+  display: flex;
+  background: var(--paper);
+}
+
+.bars {
+  position: absolute;
+  inset: auto 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+/* A 24px target with its 2px (phones) or 4px bar at the foot: a paper track, the fill in full tone. */
+.bar {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  block-size: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+.bar::before,
+.barFill {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  block-size: 2px;
+}
+
+/* Paper with an ink keyline under it: one of the two edges reads on any ground (the meadow's
+   dark grass, its white quilt, the pale satin). The fill covers both. */
+.bar::before {
+  border-block-end: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+/* The ink focus ring gets the same paper ground. */
+.bar:focus-visible {
+  background: var(--paper);
+}
+
+.barFill {
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.bar[aria-current] .barFill {
+  transform: scaleX(1);
+}
+
+/*
+ * Wide screens: the 16:9 frame. The campaign is Jimmy Choo's 16:9 where the screen allows (the
+ * strip peeking in below) and never shorter than 50vw, so a short screen trims at most 6.25vw
+ * of the frame, half from the sky and half from the grass: her head (19% down the outpainted
+ * frame) stays well below the header and the shoes (88%) stay whole. The film fills the same box.
+ */
+@media (min-width: 1024px) {
+  .campaign {
+    block-size: min(56.25vw, max(50vw, calc(100svh - var(--b-bar-h) - 72px)));
+  }
+
+  .track,
+  .slide,
+  .campaignPanel,
+  .filmLink {
+    block-size: 100%;
+  }
+
+  .campaignImg {
+    --meadow-pos: 50% 50%;
+    block-size: 100%;
+    aspect-ratio: auto;
+  }
+
+  .film {
+    block-size: 100%;
+    aspect-ratio: auto;
+    object-position: 50% 50%;
+  }
+
+  /* Jimmy Choo's: 80px up, with room for the 30ch line. */
+  .caption {
+    inset-block-end: 80px;
+    max-inline-size: calc(100% - 2 * var(--margin));
+  }
+
+  .buttons {
+    inset-block-end: 28px;
+  }
+
+  .bar::before,
+  .barFill {
+    block-size: 4px;
+  }
+}
+
+/* The meadow's caption sits in its sky, in ink: no single colour holds over the clover, grass
+   and white quilt in the bottom-left corner. Its lowest line stays above the meadow's horizon.
+   Below 1024px the 3:4 image stands on the slide's foot and a short screen trims its top, so the
+   height is taken from the image (4/3 of the campaign's width), not the slide: 52% up the
+   picture, at most 48% wide to stay clear of her hair. */
+.caption.skyCaption {
+  inset-block-end: calc(100cqw * 4 / 3 * 0.52);
+  max-inline-size: 48%;
+}
+
+/* Under 1024px on a screen at least 4:5 wide (a phone on its side, a short window), the 3:4
+   campaign is cut down to its foot and the tall frame would lose her head. The wide frame takes
+   over there (the Img's wide media, HomeB.tsx), filling the box as on desktop and set right of
+   centre, so her head and the shoes stay in; its caption sits top-left in the sky, under the
+   header. */
+@media (max-width: 1023px) and (min-aspect-ratio: 4 / 5) {
+  .campaignPanel {
+    block-size: 100%;
+  }
+
+  .campaignImg {
+    --meadow-pos: 72% 50%;
+    block-size: 100%;
+    aspect-ratio: auto;
+  }
+
+  .caption.skyCaption {
+    inset-block: calc(var(--header-h) + var(--s-5)) auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .caption.skyCaption {
+    inset-block-end: 45%;
+    max-inline-size: calc(100% - 2 * var(--margin));
+  }
+}
+
+/* 2. The strip --------------------------------------------------------- */
+
+.stripList {
+  display: grid;
+  grid-auto-columns: 42vw;
+  grid-auto-flow: column;
+  gap: 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+/* Positioned, so each link's visually hidden colour name stays inside the scrolling strip on phones. */
+.tile {
+  position: relative;
+  display: grid;
+  align-content: start;
+  background: var(--ivory);
+  scroll-snap-align: start;
+}
+
+.tileMedia {
+  display: block;
+}
+
+.tileImg {
+  aspect-ratio: 4 / 5;
+}
+
+.tileText {
+  display: grid;
+  gap: 2px;
+  padding: var(--s-3) var(--s-3) var(--s-5);
+  text-align: center;
+}
+
+.tileName {
+  font-size: var(--b-text);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.tileLink {
+  color: inherit;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.tile:hover .tileLink,
+.tileLink:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.tileMeta {
+  color: var(--ink-2);
+  font-size: var(--t-cap);
+  line-height: 1.4;
+}
+
+.tileSkeleton {
+  aspect-ratio: 4 / 6;
+}
+
+@media (min-width: 1024px) {
+  .stripList {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+  }
+}
+
+/* 3. Doors, and the photograph half of the split ---------------------- */
+
+.doors {
+  display: grid;
+  gap: 4px;
+}
+
+/* The photograph and its caption share one cell; the caption is sticky to the screen's foot. */
+.door {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'stack';
+}
+
+.doorMedia,
+.sticky {
+  grid-area: stack;
+}
+
+.doorMedia {
+  display: block;
+}
+
+.doorImg {
+  aspect-ratio: 4 / 5;
+}
+
+.sticky {
+  position: sticky;
+  inset-block-end: 0;
+  align-self: end;
+  padding: var(--s-6) var(--margin);
+  pointer-events: none;
+}
+
+/* The link rides the photograph's left edge as the page scrolls, over shoe, skin, fur and
+   carpet in turn, so it carries its own ground: Jimmy Choo's 80% white boxes, made solid. */
+.sticky :global(.cta-line) {
+  padding: 7px 10px;
+  background: var(--paper);
+  color: var(--ink);
+  text-underline-offset: 3px;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .doors {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .sticky {
+    padding: var(--s-6);
+  }
+}
+
+/* 4. The letter beside its photograph --------------------------------- */
+
+.split {
+  display: grid;
+}
+
+.splitPanel {
+  display: grid;
+  place-items: center;
+  padding: var(--s-8) var(--margin);
+  background: var(--ivory);
+}
+
+.letter {
+  display: grid;
+  justify-items: center;
+  max-inline-size: 36ch;
+  text-align: center;
+}
+
+.letterTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.letterBody {
+  margin-top: var(--s-4);
+  font-family: var(--font-voice);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.signOff {
+  margin-top: var(--s-5);
+  font-family: var(--font-voice);
+  font-size: 1.375rem;
+  font-style: italic;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .splitPanel {
+    padding: var(--s-8);
+  }
+
+  /* The photograph fills its half even when the letter runs taller than 4:5 (tablets), so no
+     empty band opens under it and the sticky link always lands on the photograph. Both sizes
+     are set, or the 4:5 ratio would widen the box to match the taller row. */
+  .split .doorMedia,
+  .split .doorImg {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+}
+
+/* 5. The scene --------------------------------------------------------- */
+
+.scene {
+  position: relative;
+}
+
+/* 4:3 on phones, the widest crop that keeps both spires whole; 16:9 from 768px. */
+.sceneImg {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 768px) {
+  .sceneImg {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* 6. Services ---------------------------------------------------------- */
+
+.services {
+  padding: var(--s-6) var(--margin);
+  border-block: 1px solid var(--line);
+}
+
+.servicesTitle {
+  margin-bottom: var(--s-5);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.servicesList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3) var(--gutter);
+}
+
+/* Jimmy Choo's service links grow a 1.5px line from the centre on hover (0.1s). */
+.service {
+  position: relative;
+  display: inline-block;
+  padding-block: var(--s-2);
+  color: var(--ink);
+  font-size: var(--b-text);
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.service::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 4px;
+  block-size: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 100ms linear;
+}
+
+.service:hover::after,
+.service:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (min-width: 1024px) {
+  .servicesList {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* Reduced motion: a slide simply replaces the last (nothing plays on its own either). */
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .control,
+  .service::after {
+    transition: none;
+  }
+}

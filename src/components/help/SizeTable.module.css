@@ -1,0 +1,78 @@
+.fit {
+  display: grid;
+  gap: var(--s-6);
+  max-inline-size: var(--measure);
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-ui);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.table th,
+.table td {
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--line);
+  text-align: start;
+  vertical-align: baseline;
+}
+
+.table thead th {
+  padding-top: 0;
+  border-bottom-color: var(--line-strong);
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  font-weight: 500;
+}
+
+.table tbody th {
+  font-weight: 400;
+}
+
+/* Foot lengths line up on the right, so the decimals read as a column. */
+.table th:last-child,
+.table td:last-child {
+  text-align: end;
+}
+
+.table tr[data-highlight] th,
+.table tr[data-highlight] td {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* The chosen size says so in words, not only in weight. */
+.yours {
+  margin-inline-start: var(--s-2);
+  color: var(--ink-2);
+  font-size: var(--t-cap);
+  font-weight: 400;
+}
+
+.measure h3 {
+  margin: 0 0 var(--s-3);
+}
+
+/* Numbered: base.css clears markers from every list with a class. */
+.steps {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding-inline-start: 1.25em;
+  list-style: decimal outside;
+  font-size: var(--t-body);
+  line-height: 1.6;
+}
+
+.steps li::marker {
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.heel {
+  margin: 0;
+  color: var(--ink-2);
+}

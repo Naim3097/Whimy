@@ -1,0 +1,53 @@
+/* The narrow no-break space and the mark: never split, so the mark never starts a line. */
+.tie {
+  white-space: nowrap;
+}
+
+/* A 24px-tall pointer area in running text; the negative margin keeps the padding out of the line. */
+.mark {
+  display: inline-block;
+  margin: -12px -3px;
+  padding: 12px 3px;
+  border: 0;
+  background: none;
+  color: var(--olive);
+  font-family: var(--font-ui);
+  font-size: var(--t-cap);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0;
+  letter-spacing: 0.01em;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+  vertical-align: super;
+  cursor: pointer;
+  transition: text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.mark:hover {
+  text-decoration-color: currentColor;
+}
+
+.mark:focus-visible {
+  outline-offset: 0;
+  text-decoration-color: currentColor;
+}
+
+/*
+ * In a caption the mark is a word in the line, not an annotation above it, so
+ * the narrow space before it (0.13em) widens to a word space (0.26em). Its own
+ * line height already makes the area 33px, so it keeps 8px above and below.
+ */
+:global(.caption) .mark {
+  margin-block: -8px;
+  margin-inline-start: calc(0.13em - 3px);
+  padding-block: 8px;
+  vertical-align: baseline;
+  line-height: inherit;
+}
+
+/* Opens its line (e.g. a caption that is only "sample image"): no space before it. */
+.standalone .mark {
+  margin-inline-start: -3px;
+}

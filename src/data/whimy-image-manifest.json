@@ -1,0 +1,593 @@
+{
+  "group-three-colours": {
+    "width": 1920,
+    "height": 2517,
+    "dominant": "#284818",
+    "sizes": [
+      {
+        "file": "group-three-colours-480.webp",
+        "width": 480,
+        "height": 629,
+        "bytes": 45976
+      },
+      {
+        "file": "group-three-colours-960.webp",
+        "width": 960,
+        "height": 1259,
+        "bytes": 151618
+      },
+      {
+        "file": "group-three-colours-1440.webp",
+        "width": 1440,
+        "height": 1888,
+        "bytes": 274926
+      },
+      {
+        "file": "group-three-colours-1920.webp",
+        "width": 1920,
+        "height": 2517,
+        "bytes": 401520
+      }
+    ],
+    "upscaledFrom": {
+      "width": 912,
+      "height": 1200
+    }
+  },
+  "brown-scale-play": {
+    "width": 1920,
+    "height": 2546,
+    "dominant": "#B8B8A8",
+    "sizes": [
+      {
+        "file": "brown-scale-play-480.webp",
+        "width": 480,
+        "height": 636,
+        "bytes": 23960
+      },
+      {
+        "file": "brown-scale-play-960.webp",
+        "width": 960,
+        "height": 1273,
+        "bytes": 73076
+      },
+      {
+        "file": "brown-scale-play-1440.webp",
+        "width": 1440,
+        "height": 1909,
+        "bytes": 132568
+      },
+      {
+        "file": "brown-scale-play-1920.webp",
+        "width": 1920,
+        "height": 2546,
+        "bytes": 195124
+      }
+    ],
+    "upscaledFrom": {
+      "width": 1024,
+      "height": 1360
+    }
+  },
+  "brown-sky-legs": {
+    "width": 1920,
+    "height": 2546,
+    "dominant": "#484848",
+    "sizes": [
+      {
+        "file": "brown-sky-legs-480.webp",
+        "width": 480,
+        "height": 636,
+        "bytes": 21324
+      },
+      {
+        "file": "brown-sky-legs-960.webp",
+        "width": 960,
+        "height": 1273,
+        "bytes": 64006
+      },
+      {
+        "file": "brown-sky-legs-1440.webp",
+        "width": 1440,
+        "height": 1909,
+        "bytes": 118890
+      },
+      {
+        "file": "brown-sky-legs-1920.webp",
+        "width": 1920,
+        "height": 2546,
+        "bytes": 182264
+      }
+    ],
+    "upscaledFrom": {
+      "width": 880,
+      "height": 1168
+    }
+  },
+  "pink-reveal": {
+    "width": 1920,
+    "height": 2517,
+    "dominant": "#D8E8E8",
+    "sizes": [
+      {
+        "file": "pink-reveal-480.webp",
+        "width": 480,
+        "height": 629,
+        "bytes": 32746
+      },
+      {
+        "file": "pink-reveal-960.webp",
+        "width": 960,
+        "height": 1259,
+        "bytes": 106884
+      },
+      {
+        "file": "pink-reveal-1440.webp",
+        "width": 1440,
+        "height": 1888,
+        "bytes": 188244
+      },
+      {
+        "file": "pink-reveal-1920.webp",
+        "width": 1920,
+        "height": 2517,
+        "bytes": 273476
+      }
+    ],
+    "upscaledFrom": {
+      "width": 976,
+      "height": 1280
+    }
+  },
+  "green-scale-play": {
+    "width": 1920,
+    "height": 2517,
+    "dominant": "#B8B8B8",
+    "sizes": [
+      {
+        "file": "green-scale-play-480.webp",
+        "width": 480,
+        "height": 629,
+        "bytes": 15402
+      },
+      {
+        "file": "green-scale-play-960.webp",
+        "width": 960,
+        "height": 1259,
+        "bytes": 49042
+      },
+      {
+        "file": "green-scale-play-1440.webp",
+        "width": 1440,
+        "height": 1888,
+        "bytes": 96072
+      },
+      {
+        "file": "green-scale-play-1920.webp",
+        "width": 1920,
+        "height": 2517,
+        "bytes": 143720
+      }
+    ],
+    "upscaledFrom": {
+      "width": 1056,
+      "height": 1392
+    }
+  },
+  "bw-letter": {
+    "width": 1024,
+    "height": 1328,
+    "dominant": "#A8A8A8",
+    "sizes": [
+      {
+        "file": "bw-letter-480.webp",
+        "width": 480,
+        "height": 623,
+        "bytes": 35072
+      },
+      {
+        "file": "bw-letter-960.webp",
+        "width": 960,
+        "height": 1245,
+        "bytes": 98636
+      },
+      {
+        "file": "bw-letter-1024.webp",
+        "width": 1024,
+        "height": 1328,
+        "bytes": 108312
+      }
+    ]
+  },
+  "kl-patches": {
+    "width": 2176,
+    "height": 2704,
+    "dominant": "#68A8F8",
+    "sizes": [
+      {
+        "file": "kl-patches-480.webp",
+        "width": 480,
+        "height": 596,
+        "bytes": 71332
+      },
+      {
+        "file": "kl-patches-960.webp",
+        "width": 960,
+        "height": 1193,
+        "bytes": 223082
+      },
+      {
+        "file": "kl-patches-1440.webp",
+        "width": 1440,
+        "height": 1789,
+        "bytes": 373056
+      }
+    ]
+  },
+  "guess-teaser": {
+    "width": 1088,
+    "height": 1280,
+    "dominant": "#B8B8B8",
+    "sizes": [
+      {
+        "file": "guess-teaser-480.webp",
+        "width": 480,
+        "height": 565,
+        "bytes": 23012
+      },
+      {
+        "file": "guess-teaser-960.webp",
+        "width": 960,
+        "height": 1129,
+        "bytes": 48236
+      },
+      {
+        "file": "guess-teaser-1088.webp",
+        "width": 1088,
+        "height": 1280,
+        "bytes": 56078
+      }
+    ]
+  },
+  "pointe-pretty": {
+    "width": 2176,
+    "height": 2704,
+    "dominant": "#F8E8E8",
+    "sizes": [
+      {
+        "file": "pointe-pretty-480.webp",
+        "width": 480,
+        "height": 596,
+        "bytes": 13618
+      },
+      {
+        "file": "pointe-pretty-960.webp",
+        "width": 960,
+        "height": 1193,
+        "bytes": 34836
+      },
+      {
+        "file": "pointe-pretty-1440.webp",
+        "width": 1440,
+        "height": 1789,
+        "bytes": 72976
+      }
+    ]
+  },
+  "save-the-date": {
+    "width": 1136,
+    "height": 1408,
+    "dominant": "#98A868",
+    "sizes": [
+      {
+        "file": "save-the-date-480.webp",
+        "width": 480,
+        "height": 595,
+        "bytes": 46998
+      },
+      {
+        "file": "save-the-date-960.webp",
+        "width": 960,
+        "height": 1190,
+        "bytes": 128294
+      },
+      {
+        "file": "save-the-date-1136.webp",
+        "width": 1136,
+        "height": 1408,
+        "bytes": 155488
+      }
+    ]
+  },
+  "pairs-grid": {
+    "width": 1920,
+    "height": 2390,
+    "dominant": "#F8F8F8",
+    "sizes": [
+      {
+        "file": "pairs-grid-480.webp",
+        "width": 480,
+        "height": 597,
+        "bytes": 15568
+      },
+      {
+        "file": "pairs-grid-960.webp",
+        "width": 960,
+        "height": 1195,
+        "bytes": 40686
+      },
+      {
+        "file": "pairs-grid-1440.webp",
+        "width": 1440,
+        "height": 1792,
+        "bytes": 72446
+      },
+      {
+        "file": "pairs-grid-1920.webp",
+        "width": 1920,
+        "height": 2390,
+        "bytes": 107768
+      }
+    ],
+    "upscaledFrom": {
+      "width": 640,
+      "height": 800
+    }
+  },
+  "monogram-coin": {
+    "width": 690,
+    "height": 690,
+    "dominant": "#C8B898",
+    "sizes": [
+      {
+        "file": "monogram-coin-96.webp",
+        "width": 96,
+        "height": 96,
+        "bytes": 1956
+      },
+      {
+        "file": "monogram-coin-192.webp",
+        "width": 192,
+        "height": 192,
+        "bytes": 6764
+      },
+      {
+        "file": "monogram-coin-384.webp",
+        "width": 384,
+        "height": 384,
+        "bytes": 27486
+      }
+    ]
+  },
+  "kl-flower": {
+    "width": 708,
+    "height": 708,
+    "dominant": "#585818",
+    "sizes": [
+      {
+        "file": "kl-flower-96.webp",
+        "width": 96,
+        "height": 96,
+        "bytes": 2204
+      },
+      {
+        "file": "kl-flower-192.webp",
+        "width": 192,
+        "height": 192,
+        "bytes": 10080
+      },
+      {
+        "file": "kl-flower-384.webp",
+        "width": 384,
+        "height": 384,
+        "bytes": 38366
+      }
+    ]
+  },
+  "patches-trio": {
+    "width": 1440,
+    "height": 1150,
+    "dominant": "#C8B898",
+    "sizes": [
+      {
+        "file": "patches-trio-480.webp",
+        "width": 480,
+        "height": 383,
+        "bytes": 46456
+      },
+      {
+        "file": "patches-trio-960.webp",
+        "width": 960,
+        "height": 767,
+        "bytes": 150132
+      }
+    ]
+  },
+  "insole-detail": {
+    "width": 330,
+    "height": 328,
+    "dominant": "#281818",
+    "sizes": [
+      {
+        "file": "insole-detail-330.webp",
+        "width": 330,
+        "height": 328,
+        "bytes": 3606
+      }
+    ]
+  },
+  "choco-grass": {
+    "width": 1209,
+    "height": 1505,
+    "dominant": "#686868",
+    "sizes": [
+      {
+        "file": "choco-grass-480.webp",
+        "width": 480,
+        "height": 598,
+        "bytes": 28228
+      },
+      {
+        "file": "choco-grass-960.webp",
+        "width": 960,
+        "height": 1195,
+        "bytes": 73184
+      },
+      {
+        "file": "choco-grass-1209.webp",
+        "width": 1209,
+        "height": 1505,
+        "bytes": 94674
+      }
+    ],
+    "from": "group-three-colours"
+  },
+  "strawberry-grass": {
+    "width": 1028,
+    "height": 1280,
+    "dominant": "#080808",
+    "sizes": [
+      {
+        "file": "strawberry-grass-480.webp",
+        "width": 480,
+        "height": 598,
+        "bytes": 50466
+      },
+      {
+        "file": "strawberry-grass-960.webp",
+        "width": 960,
+        "height": 1195,
+        "bytes": 115362
+      },
+      {
+        "file": "strawberry-grass-1028.webp",
+        "width": 1028,
+        "height": 1280,
+        "bytes": 125922
+      }
+    ],
+    "from": "group-three-colours"
+  },
+  "kiwi-grass": {
+    "width": 832,
+    "height": 1038,
+    "dominant": "#082808",
+    "sizes": [
+      {
+        "file": "kiwi-grass-480.webp",
+        "width": 480,
+        "height": 599,
+        "bytes": 49170
+      },
+      {
+        "file": "kiwi-grass-832.webp",
+        "width": 832,
+        "height": 1038,
+        "bytes": 94770
+      }
+    ],
+    "from": "group-three-colours"
+  },
+  "strawberry-sky": {
+    "width": 1440,
+    "height": 1800,
+    "dominant": "#B8D8D8",
+    "sizes": [
+      {
+        "file": "strawberry-sky-480.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 22402
+      },
+      {
+        "file": "strawberry-sky-960.webp",
+        "width": 960,
+        "height": 1200,
+        "bytes": 55778
+      },
+      {
+        "file": "strawberry-sky-1440.webp",
+        "width": 1440,
+        "height": 1800,
+        "bytes": 95252
+      }
+    ],
+    "from": "pink-reveal"
+  },
+  "choco-giant": {
+    "width": 2486,
+    "height": 1988,
+    "dominant": "#A8A898",
+    "sizes": [
+      {
+        "file": "choco-giant-480.webp",
+        "width": 480,
+        "height": 384,
+        "bytes": 18642
+      },
+      {
+        "file": "choco-giant-960.webp",
+        "width": 960,
+        "height": 768,
+        "bytes": 58806
+      },
+      {
+        "file": "choco-giant-1440.webp",
+        "width": 1440,
+        "height": 1152,
+        "bytes": 105608
+      },
+      {
+        "file": "choco-giant-1920.webp",
+        "width": 1920,
+        "height": 1535,
+        "bytes": 152106
+      },
+      {
+        "file": "choco-giant-2486.webp",
+        "width": 2486,
+        "height": 1988,
+        "bytes": 214820
+      }
+    ],
+    "from": "brown-scale-play"
+  },
+  "kiwi-giant": {
+    "width": 2560,
+    "height": 2199,
+    "dominant": "#B8B8B8",
+    "sizes": [
+      {
+        "file": "kiwi-giant-480.webp",
+        "width": 480,
+        "height": 412,
+        "bytes": 14320
+      },
+      {
+        "file": "kiwi-giant-960.webp",
+        "width": 960,
+        "height": 825,
+        "bytes": 50026
+      },
+      {
+        "file": "kiwi-giant-1440.webp",
+        "width": 1440,
+        "height": 1237,
+        "bytes": 98964
+      },
+      {
+        "file": "kiwi-giant-1920.webp",
+        "width": 1920,
+        "height": 1650,
+        "bytes": 153204
+      },
+      {
+        "file": "kiwi-giant-2560.webp",
+        "width": 2560,
+        "height": 2199,
+        "bytes": 225034
+      }
+    ],
+    "from": "green-scale-play"
+  }
+}

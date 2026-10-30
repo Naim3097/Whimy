@@ -1,0 +1,55 @@
+.stepper {
+  display: inline-grid;
+  grid-template-columns: 44px 40px 44px;
+  align-items: center;
+  block-size: 48px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  background: var(--paper);
+}
+
+/* Still a 44px tap target, only narrower. */
+.sm {
+  grid-template-columns: 44px 28px 44px;
+  block-size: 44px;
+}
+
+.btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  block-size: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  transition: color var(--dur-1) var(--ease-std);
+}
+
+/* The buttons sit inside the control's 1px border; their pointer area takes it in, so the
+   small stepper's buttons are 44px tall to the touch. */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: -1px 0;
+}
+
+.btn svg {
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+.btn:hover:not(:disabled) {
+  color: var(--action);
+}
+
+.btn:disabled {
+  color: var(--line-strong);
+}
+
+.value {
+  font-size: var(--t-ui);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}

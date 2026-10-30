@@ -1,0 +1,242 @@
+/* ProductCard: a pale tile, as on both reference sites; the photograph carries nothing. */
+.card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  container-type: inline-size;
+  background: var(--ivory);
+}
+
+.media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.img {
+  inline-size: 100%;
+  block-size: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+/*
+ * The second photograph exists only on hover-capable devices. Elsewhere it is
+ * display: none, so its lazy image is never fetched.
+ */
+.second {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .second {
+    position: absolute;
+    inset: 0;
+    display: block;
+    opacity: 0;
+    transition: opacity var(--dur-3) var(--ease-std);
+  }
+
+  .card:hover .second {
+    opacity: 1;
+  }
+
+  .card:hover .nameLink {
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+  }
+}
+
+/* Focus lands on the name; the ring is drawn on the photograph, with a paper keyline inside. */
+.media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.card:has(.nameLink:focus-visible) .media {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+}
+
+.card:has(.nameLink:focus-visible) .media::after {
+  box-shadow: inset 0 0 0 2px var(--paper);
+}
+
+.body {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: var(--s-3) var(--s-4) var(--s-5);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.name {
+  min-inline-size: 0;
+  text-wrap: balance;
+  hyphens: manual;
+}
+
+/*
+ * Narrow cards (phones, tablets, 1024–1279): the name takes its own line and
+ * the price sits under it, so a name never squeezes into a ragged column.
+ */
+@container (max-width: 299px) {
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}
+
+.nameLink {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition:
+    text-underline-offset var(--dur-1) var(--ease-std),
+    text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+/* The text under the photograph is part of the same link. */
+.nameLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.nameLink:focus-visible {
+  outline: none;
+}
+
+/* Provenance marks stay clickable above the link layer. */
+.body :global(button),
+.miniBody :global(button) {
+  position: relative;
+  z-index: 1;
+}
+
+.price {
+  flex: none;
+  white-space: nowrap;
+}
+
+/*
+ * *choco* · Rich Brown, as the bag's ColourLine: the name opens with a 12px lead holding the
+ * "·", and the line is pulled 12px left and clipped 2px short of its column (room for the
+ * italic's overhang), so a name that wraps under its nickname drops the "·" with the lead.
+ * The clip lifts the line over the card's link layer, so taps pass through it to the link.
+ */
+.colour {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-inline-start: -12px;
+  clip-path: inset(-8px -8px -8px 10px);
+  pointer-events: none;
+}
+
+.colour > :first-child {
+  padding-inline-start: 12px;
+}
+
+.official::before {
+  content: '·'; /* engines without alt text for content keep the dot */
+  content: '·' / '';
+  display: inline-block;
+  inline-size: 12px;
+  text-align: center;
+}
+
+.origin {
+  margin-top: var(--s-1);
+}
+
+/* Grid: a tiled wall with 4px seams (Jimmy Choo 4px, Christy Ng 5px). */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mini card ------------------------------------------------------------ */
+
+.mini {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.thumb {
+  inline-size: 64px;
+  block-size: 80px;
+  aspect-ratio: 4 / 5;
+}
+
+.miniBody {
+  display: grid;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.miniName {
+  justify-self: start;
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition:
+    text-underline-offset var(--dur-1) var(--ease-std),
+    text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+/* The whole row, thumbnail included, is the name's link. */
+.miniName::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.mini:hover .miniName,
+.miniName:focus-visible {
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+}
+
+.miniName:focus-visible {
+  outline: none;
+}
+
+.mini:has(.miniName:focus-visible) {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+}

@@ -1,0 +1,190 @@
+/* SetRow: one hairline-ruled row. Narrow (phones, a 440px info column): chips + name,
+   price, then the button. From 640px of its own width: one line of four. */
+.frame {
+  container-type: inline-size;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: var(--s-3);
+  row-gap: var(--s-2);
+  padding-block: 20px;
+  border-block: 1px solid var(--line);
+}
+
+.chips {
+  display: inline-flex;
+  gap: var(--s-1);
+}
+
+.name,
+.price {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--t-ui);
+  line-height: 1.4;
+}
+
+.price {
+  grid-column: 2;
+  font-weight: 500;
+}
+
+.action {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: var(--s-2);
+}
+
+@container (min-width: 640px) {
+  .row {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    column-gap: var(--s-5);
+  }
+
+  .price {
+    grid-column: auto;
+  }
+
+  .action {
+    grid-column: auto;
+    margin-top: 0;
+  }
+}
+
+/* Size rows (the drawer and the collection's set form) ---------------- */
+
+.fields {
+  display: grid;
+  gap: var(--s-6);
+  container-type: inline-size;
+}
+
+.colour {
+  display: grid;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-3);
+}
+
+.legend :global(.chip) {
+  align-self: center;
+}
+
+/* Narrow: the squares share the row, so it ends on the button's edge below. */
+.sizes {
+  display: grid;
+  grid-template-columns: repeat(var(--count, 6), minmax(0, 1fr));
+  gap: var(--s-2);
+}
+
+.size {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-1) var(--ease-std),
+    border-color var(--dur-1) var(--ease-std),
+    color var(--dur-1) var(--ease-std);
+}
+
+.size:hover {
+  border-color: var(--ink);
+}
+
+.size:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.size:has(input:focus-visible) {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+}
+
+.size[data-out] {
+  border-color: var(--line-strong);
+  color: var(--ink-2);
+  cursor: not-allowed;
+}
+
+/* Unavailable: a 1px diagonal strike, corner to corner. */
+.size[data-out]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  inline-size: 64px;
+  block-size: 1px;
+  background: var(--ink-2);
+  translate: -50% -50%;
+  rotate: -45deg;
+}
+
+.error {
+  margin: var(--s-2) 0 0;
+}
+
+/* From 400px of row width (the desktop drawer): fixed 48px squares. */
+@container (min-width: 400px) {
+  .sizes {
+    grid-template-columns: repeat(var(--count, 6), 48px);
+  }
+}
+
+/* SetBuilderDialog ---------------------------------------------------- */
+
+.body {
+  display: grid;
+  gap: var(--s-6);
+  padding: var(--s-5) 20px var(--s-6);
+}
+
+.foot {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-4) 20px;
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin: 0;
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .body {
+    padding-inline: var(--s-5);
+  }
+
+  .foot {
+    padding-inline: var(--s-5);
+  }
+}

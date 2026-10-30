@@ -1,0 +1,52 @@
+/* Rows on the bag's measure: cols 1–8 from 1024. */
+.saved {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+  .saved {
+    grid-column: 1 / span 8;
+  }
+}
+
+.count {
+  margin-bottom: var(--s-4);
+  font-weight: 400;
+}
+
+.rows {
+  border-top: 1px solid var(--line);
+}
+
+/* Size, Add to bag and Remove on one line where they fit. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-1) var(--s-5);
+}
+
+.sizeLabel {
+  margin-inline-end: calc(-1 * var(--s-3));
+}
+
+.size.size {
+  inline-size: auto;
+  min-inline-size: 112px;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+.error {
+  flex-basis: 100%;
+}
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-6);
+}

@@ -1,0 +1,194 @@
+/* A, after Christy Ng: one centred line of 12px capitals on the brand band; the whole bar is the link. */
+.a {
+  position: relative;
+  background: var(--band-a);
+  color: var(--band-a-ink);
+}
+
+/* The presentation switch: at the bar's end on wide screens, in the menu on phones. */
+.switch {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .a .switch {
+    position: absolute;
+    inset: 0 var(--margin) 0 auto;
+    display: inline-flex;
+  }
+
+  .b .switch {
+    display: inline-flex;
+  }
+}
+
+.aLink {
+  display: block;
+  padding: 9px var(--margin);
+  color: inherit;
+  font-size: var(--t-cap);
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: var(--caps-tracking);
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.aLink:hover {
+  text-decoration-color: currentColor;
+}
+
+.aLink:focus-visible {
+  outline-color: var(--ink);
+  outline-offset: -4px;
+}
+
+/* B, after Jimmy Choo: 12px Franklin on Rich Brown's darkest shade, in a 26px bar (--b-bar-h). Its
+   links and buttons fill the bar's height: 26px targets, above WCAG 2.2 AA's 24px. */
+.b {
+  background: var(--band-b);
+  color: var(--band-b-ink);
+  font-size: var(--t-cap);
+  line-height: 1.4;
+}
+
+.b :focus-visible {
+  outline-color: var(--paper);
+}
+
+/* The ends keep their own width; the centre takes what is left (its messages ellipsise). */
+.bRow {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, auto) 1fr;
+  align-items: center;
+  column-gap: var(--s-4);
+  min-block-size: var(--b-bar-h);
+}
+
+.side {
+  white-space: nowrap;
+}
+
+.sideLink {
+  justify-self: start;
+  padding-block: 4px;
+  color: inherit;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.sideLink:hover {
+  text-decoration-color: currentColor;
+}
+
+.end {
+  display: inline-flex;
+  justify-self: end;
+  align-items: center;
+  gap: var(--s-5);
+}
+
+.market {
+  opacity: 0.8;
+}
+
+.centre {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-1);
+  min-inline-size: 0;
+}
+
+/* One cell for every message: the slot is as wide as the longest, and they cross-fade in it. */
+.messages {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.message {
+  grid-area: 1 / 1;
+  overflow: hidden;
+  padding-block: 4px;
+  color: inherit;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 3px;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity var(--dur-3) var(--ease-std),
+    visibility var(--dur-3),
+    text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.message[data-current] {
+  visibility: visible;
+  opacity: 1;
+}
+
+.message:hover {
+  text-decoration-color: currentColor;
+}
+
+.next {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: 32px;
+  block-size: var(--b-bar-h);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+.next svg {
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+/* Hidden until a keyboard reaches it, then a small outlined word beside the message. */
+.stop {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: var(--t-cap);
+  white-space: nowrap;
+}
+
+/* Over the end of the slot, on the bar's own colour, so showing it never moves the arrow. */
+.stop:focus-visible {
+  inset-inline-end: 36px;
+  inline-size: auto;
+  block-size: auto;
+  overflow: visible;
+  clip-path: none;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  background: var(--band-b);
+}
+
+/* Phones keep only the rotating message. */
+@media (max-width: 767px) {
+  .bRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side {
+    display: none;
+  }
+}

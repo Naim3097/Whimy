@@ -1,0 +1,476 @@
+/*
+ * Product page (DESIGN.md §12): gallery cols 1-6, buy box cols 8-12 (from
+ * 1280px a centred 704 / gap / 440 composition), on plain paper. The footer
+ * owns the gap before it, so the page ends without padding of its own.
+ */
+
+.top {
+  align-items: start;
+  row-gap: var(--s-5);
+}
+
+.gallery,
+.buy {
+  grid-column: 1 / -1;
+  min-inline-size: 0;
+}
+
+.buy {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tablet columns only (see below); elsewhere their children belong to the buy box's one column. */
+.identity,
+.choose {
+  display: contents;
+}
+
+/* 1. Breadcrumb */
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.crumbs li + li::before {
+  content: '/';
+  margin-inline-end: var(--s-2);
+}
+
+/* 2-3. Name, then nickname · official name */
+.title {
+  margin-top: var(--s-4);
+}
+
+.colourName {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--s-2);
+  margin-top: var(--s-2);
+  color: var(--ink);
+}
+
+.official {
+  color: var(--ink-2);
+  font-size: var(--t-ui);
+  line-height: 1.4;
+}
+
+/* 4. Price */
+.price {
+  margin-top: var(--s-4);
+  font-size: var(--t-lead);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.atome {
+  margin-top: var(--s-1);
+}
+
+/* 5. Confirmed facts only, three lines at most */
+.description {
+  max-inline-size: 46ch;
+  margin-top: var(--s-4);
+}
+
+/* Below 1024px the colour's note follows the description (the desktop gallery shows it under the lead). */
+.buyNote {
+  margin-top: var(--s-5);
+  color: var(--ink-2);
+  font-size: var(--t-cap);
+  line-height: 1.4;
+}
+
+/* 6. A 24px gap and a hairline */
+.rule {
+  margin-block: var(--s-5);
+}
+
+/* 8. Size row and the fit line */
+.sizes {
+  margin-top: var(--s-5);
+  scroll-margin-block: calc(var(--header-h) + var(--s-5)) 96px;
+}
+
+.fit {
+  margin-top: var(--s-3);
+}
+
+/* 9. The primary action */
+.action {
+  margin-top: var(--s-5);
+}
+
+/* 10. Save · TikTok */
+.textRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--s-3);
+  margin-top: var(--s-2);
+  font-size: var(--t-ui);
+  line-height: 1.4;
+}
+
+.textAction {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+/* "Save" is 32px wide; its pointer area reaches 44px, into the margin before it and the 12px gap after. */
+.textAction::before {
+  content: '';
+  position: absolute;
+  inset: 0 min(0px, (100% - 44px) / 2);
+}
+
+.dot {
+  color: var(--ink-2);
+}
+
+/* 11. Reassurance: three plain 13px lines, no rules, box or icons; the accordion's top hairline follows. */
+.reassure {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+
+.reassure li {
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+/* 12. Accordions */
+.details {
+  margin-top: var(--s-6);
+}
+
+.specs {
+  display: grid;
+  margin: 0;
+}
+
+.spec {
+  display: grid;
+  grid-template-columns: minmax(0, 9em) minmax(0, 1fr);
+  gap: var(--s-3);
+  padding-block: var(--s-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.spec dt {
+  color: var(--ink-2);
+}
+
+.spec dd {
+  margin: 0;
+  color: var(--ink);
+}
+
+.insole {
+  inline-size: 120px;
+  margin-top: var(--s-3);
+}
+
+.panel {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.panelList {
+  display: grid;
+  gap: var(--s-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+/* Waitlist: Join the Petals list */
+.join {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.optional {
+  color: var(--ink-2);
+  font-weight: 400;
+}
+
+.joined {
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Below both zones: the set, the reviews line, the story link. Nothing else. */
+.after {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-8);
+}
+
+/* Mobile and tablet sticky bar ---------------------------------------- */
+
+.bar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-block-size: calc(64px + env(safe-area-inset-bottom));
+  padding: var(--s-2) var(--margin) calc(var(--s-2) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  translate: 0 100%;
+  visibility: hidden;
+  transition:
+    translate var(--dur-2) var(--ease-std),
+    visibility 0s linear var(--dur-2),
+    --accent var(--dur-2) var(--ease-std);
+}
+
+.bar[data-shown] {
+  translate: 0 0;
+  visibility: visible;
+  transition:
+    translate var(--dur-2) var(--ease-out),
+    visibility 0s,
+    --accent var(--dur-2) var(--ease-std);
+}
+
+.barInfo {
+  min-inline-size: 0;
+}
+
+/* Sized for 360px: "strawberry · EU 37" over the price, beside the button. */
+.barInfo p {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.barColour {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  font-size: var(--t-ui);
+  line-height: 1.3;
+}
+
+.barChip {
+  --chip: var(--accent);
+  align-self: center;
+}
+
+.bar :global(.btn) {
+  flex: none;
+}
+
+/*
+ * Keeps the footer's last lines clear of the bar, and while the bar is up,
+ * scrolls a focused control above it rather than under it (WCAG 2.4.11).
+ */
+@media (max-width: 1023px) {
+  :global(body):has(.bar) {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+
+  :global(html):has(.bar[data-shown]) {
+    scroll-padding-bottom: calc(64px + env(safe-area-inset-bottom) + var(--s-4));
+  }
+}
+
+/* Loading */
+.skeletonMedia {
+  aspect-ratio: 4 / 5;
+  margin-inline: calc(-1 * var(--margin));
+}
+
+.skeletonInfo {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.skeletonInfo > :nth-child(1) {
+  inline-size: 40%;
+  block-size: 16px;
+}
+
+.skeletonInfo > :nth-child(2) {
+  inline-size: 70%;
+  block-size: 32px;
+}
+
+.skeletonInfo > :nth-child(3) {
+  block-size: 160px;
+}
+
+/*
+ * Phones: photo, then name, colour and price in the first screen. Petals drops
+ * the breadcrumb here (the header lockup and menu lead back); a sample keeps
+ * its way back to the preview catalogue.
+ */
+@media (max-width: 767px) {
+  .buy[data-kind='whimy'] .crumbs {
+    display: none;
+  }
+
+  .buy[data-kind='whimy'] .title {
+    margin-top: 0;
+  }
+}
+
+/* Tablet: the gallery at full width; below it the buy box in two columns of four. */
+@media (min-width: 768px) {
+  .top {
+    row-gap: var(--s-6);
+    padding-top: var(--s-5);
+  }
+
+  .skeletonMedia {
+    aspect-ratio: 8 / 5;
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .buy {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    align-items: start;
+  }
+
+  .identity,
+  .choose {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .identity {
+    grid-column: 1 / span 4;
+  }
+
+  .choose {
+    grid-column: 5 / span 4;
+  }
+
+  .rule {
+    display: none;
+  }
+
+  .details {
+    grid-column: 1 / -1;
+  }
+
+  /* A sample style has one photograph: it takes cols 1-4 and the buy box sits beside it, in one column. */
+  .top[data-kind='sample'] .gallery {
+    grid-column: 1 / span 4;
+  }
+
+  .top[data-kind='sample'] .buy {
+    display: flex;
+    grid-column: 5 / span 4;
+  }
+
+  .top[data-kind='sample'] .identity,
+  .top[data-kind='sample'] .choose {
+    display: contents;
+  }
+
+  .top[data-kind='sample'] .rule {
+    display: block;
+  }
+}
+
+/* Desktop: the buy box rides beside the stack (useFitSticky sets --buy-top). */
+@media (min-width: 1024px) {
+  .top {
+    padding-top: var(--s-6);
+  }
+
+  .buyNote {
+    display: none;
+  }
+
+  /* Past its 704px cap the gallery keeps to the buy box; paper shows on the outer side. */
+  .gallery {
+    grid-column: 1 / span 6;
+    justify-self: end;
+    inline-size: 100%;
+    max-inline-size: 704px;
+  }
+
+  .buy {
+    position: sticky;
+    top: var(--buy-top, calc(var(--header-h) + 24px));
+    grid-column: 8 / span 5;
+    max-inline-size: 440px;
+  }
+
+  .after {
+    margin-top: var(--s-9);
+  }
+
+  .bar {
+    display: none;
+  }
+
+  .skeletonMedia {
+    max-inline-size: 704px;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/*
+ * From 1280px the pair is its own composition: the gallery up to 704px, a gap
+ * of 96-200px, the 440px buy box, centred under the header lockup so no strip
+ * of unplanned paper builds up on the right. The set row below shares its edges.
+ */
+@media (min-width: 1280px) {
+  .top,
+  .after {
+    max-inline-size: calc(704px + 200px + 440px + 2 * var(--margin));
+    margin-inline: auto;
+  }
+
+  .top {
+    grid-template-columns: minmax(0, 704px) minmax(96px, 1fr) 440px;
+  }
+
+  .gallery {
+    grid-column: 1;
+    justify-self: stretch;
+  }
+
+  .buy {
+    grid-column: 3;
+  }
+}
+
+/*
+ * The gallery's colour cross-fade: one 200ms view transition of the whole
+ * viewport. The lead's product-hero name is lifted for it, so no frame is
+ * painted in its own layer above the sticky header.
+ */
+:global(html[data-transition='colour']) .gallery * {
+  view-transition-name: none !important;
+}
+
+:global(html[data-transition='colour'])::view-transition-group(*),
+:global(html[data-transition='colour'])::view-transition-old(*),
+:global(html[data-transition='colour'])::view-transition-new(*) {
+  animation-duration: var(--dur-2);
+  animation-timing-function: var(--ease-std);
+}

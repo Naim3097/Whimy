@@ -1,0 +1,500 @@
+/*
+ * /story. Every photograph appears once, untouched, at or below its cap.
+ * Bleeds alternate sides: letter left, scale right, horizon left, reveal right.
+ * Only the image bleeds; captions keep the page margin.
+ */
+
+/* No bottom padding: the footer owns the paper before it. */
+@media (min-width: 1024px) {
+  .story {
+    padding-top: var(--s-7);
+  }
+}
+
+.nick {
+  font-family: var(--font-voice);
+  font-size: var(--v-0);
+  font-style: italic;
+  line-height: 1;
+}
+
+/* 1. The letter ------------------------------------------------------- */
+
+.letter {
+  row-gap: var(--s-6);
+}
+
+/* Phones: the photograph full-bleed under the header, then the letter. */
+.letterFigure {
+  grid-column: 1 / -1;
+  margin-inline: calc(-1 * var(--margin));
+}
+
+.letterFigure figcaption {
+  padding-inline: var(--margin);
+}
+
+.letterText {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+  .letter {
+    padding-top: var(--s-7);
+  }
+
+  /* Bleeds left to the viewport edge; past its cap, paper shows on the outer side. */
+  .letterFigure {
+    grid-column: 1 / span 6;
+    justify-self: end;
+    inline-size: calc(100% + var(--margin));
+    margin-inline: calc(-1 * var(--margin)) 0;
+  }
+
+  .letterFigure figcaption {
+    padding-inline: var(--margin) 0;
+  }
+
+  .letterText {
+    grid-column: 2 / span 6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .letter {
+    padding-top: 0;
+  }
+
+  .letterFigure {
+    grid-row: 1;
+  }
+
+  /* The salutation starts 96px below the photograph's top, so the two interlock. */
+  .letterText {
+    grid-column: 8 / span 4;
+    grid-row: 1;
+    align-self: start;
+    padding-top: var(--s-9);
+  }
+}
+
+.salutation {
+  margin-bottom: var(--s-4);
+}
+
+.letterBody p + p {
+  margin-top: 0.8em;
+}
+
+/* Signed "whimy" alone: no raster mark beside it. */
+.signature {
+  margin-top: var(--s-5);
+}
+
+.signatureWord {
+  font-family: var(--font-voice);
+  font-size: var(--v-1);
+  font-style: italic;
+  line-height: 1;
+}
+
+/* 2. Lookbook --------------------------------------------------------- */
+
+.lookbook {
+  margin-top: var(--s-8);
+}
+
+@media (min-width: 1024px) {
+  .lookbook {
+    margin-top: var(--s-9);
+  }
+}
+
+/* Scale pair. Phones: label and quote, the giant frame full-bleed, the small frame at 60% on the right. */
+.scalePair {
+  row-gap: var(--s-6);
+}
+
+.lookbookHead {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+}
+
+.quote {
+  display: grid;
+  gap: var(--s-2);
+  justify-items: start;
+  margin: 0;
+}
+
+.source {
+  color: var(--ink-2);
+}
+
+.scaleBig {
+  grid-column: 1 / -1;
+  margin-inline: calc(-1 * var(--margin));
+}
+
+.scaleBig figcaption {
+  padding-inline: var(--margin);
+}
+
+.scaleSmall {
+  grid-column: 1 / -1;
+  justify-self: end;
+  inline-size: 60%;
+}
+
+/* From 768px: the giant frame bleeds right across both rows; label on top, small frame at the foot. */
+@media (min-width: 768px) {
+  .scalePair {
+    grid-template-rows: auto 1fr;
+  }
+
+  .lookbookHead {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+  }
+
+  .scaleBig {
+    grid-column: 4 / -1;
+    grid-row: 1 / span 2;
+    justify-self: start;
+    inline-size: calc(100% + var(--margin));
+    margin-inline: 0 calc(-1 * var(--margin));
+  }
+
+  .scaleBig figcaption {
+    padding-inline: 0 var(--margin);
+  }
+
+  .scaleSmall {
+    grid-column: 1 / span 3;
+    grid-row: 2;
+    align-self: end;
+    justify-self: stretch;
+    inline-size: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lookbookHead {
+    grid-column: 2 / span 4;
+  }
+
+  .scaleBig {
+    grid-column: 7 / -1;
+  }
+
+  .scaleSmall {
+    grid-column: 2 / span 3;
+  }
+}
+
+/*
+ * Horizon pair. The small frame drops by the difference of the two turf lines
+ * (width × height/width × horizon, from the registry), so both horizons sit on
+ * one y; a 1px turf rule joins them. Pure calc, no script.
+ */
+.horizon {
+  container-type: inline-size;
+  margin-top: var(--s-8);
+}
+
+@media (min-width: 1024px) {
+  .horizon {
+    margin-top: var(--s-9);
+  }
+}
+
+.horizonRow {
+  --lw: calc(60cqi + var(--margin));
+  --sw: 34cqi;
+  --turf-y: calc(var(--lw) * var(--big-ratio) * var(--big-horizon));
+  display: flex;
+  align-items: flex-start;
+}
+
+.horizonBig {
+  flex: none;
+  inline-size: var(--lw);
+  /* Bleeds left until the cap, then paper shows on the outer side. */
+  margin-inline-start: calc(-1 * var(--margin));
+}
+
+.horizonBig figcaption {
+  padding-inline-start: var(--margin);
+}
+
+.turf {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  block-size: 1px;
+  margin-top: var(--turf-y);
+  background: var(--turf);
+}
+
+.horizonSmall {
+  flex: none;
+  inline-size: var(--sw);
+  margin-top: calc(var(--turf-y) - var(--sw) * var(--small-ratio) * var(--small-horizon));
+}
+
+@media (min-width: 768px) {
+  .horizonRow {
+    --lw: min(calc(54cqi + var(--margin)), 704px);
+    --sw: min(28cqi, 360px);
+  }
+
+  .horizonBig {
+    margin-inline-start: max(calc(-1 * var(--margin)), calc(54cqi - 704px));
+  }
+
+  .horizonSmall {
+    margin-inline-end: 4cqi;
+  }
+}
+
+@media (min-width: 1024px) {
+  .horizonRow {
+    --lw: min(calc(49cqi + var(--margin)), 704px);
+    --sw: min(23.75cqi, 360px);
+  }
+
+  .horizonBig {
+    margin-inline-start: max(calc(-1 * var(--margin)), calc(49cqi - 704px));
+  }
+
+  .horizonSmall {
+    margin-inline-end: 8.5cqi;
+  }
+}
+
+/* Reveal pair. Phones: the black-and-white grid at half width, then all three full-bleed. */
+.reveal {
+  container-type: inline-size;
+  row-gap: var(--s-6);
+  margin-top: var(--s-8);
+}
+
+@media (min-width: 1024px) {
+  .reveal {
+    margin-top: var(--s-9);
+  }
+}
+
+.revealSmall {
+  grid-column: 1 / span 2;
+}
+
+.revealBig {
+  grid-column: 1 / -1;
+  margin-inline: calc(-1 * var(--margin));
+}
+
+.revealBig figcaption {
+  padding-inline: var(--margin);
+}
+
+/* Its white is the page's paper. */
+.multiply {
+  background-color: transparent;
+}
+
+.multiply img {
+  mix-blend-mode: multiply;
+}
+
+/*
+ * From 768px the group shot spans the right half and bleeds right, and the grid
+ * of pairs hangs from its horizon. Half the grid is 50cqi - gutter/2 at 8 and 12 columns.
+ */
+@media (min-width: 768px) {
+  .reveal {
+    --gw: min(calc(50cqi - 0.5 * var(--gutter) + var(--margin)), 729px);
+    align-items: start;
+  }
+
+  .revealSmall {
+    grid-column: 1 / span 3;
+    margin-top: calc(var(--gw) * var(--g-ratio) * var(--g-horizon));
+  }
+
+  .revealBig {
+    grid-column: 5 / -1;
+    justify-self: start;
+    inline-size: calc(100% + var(--margin));
+    margin-inline: 0 calc(-1 * var(--margin));
+  }
+
+  .revealBig figcaption {
+    padding-inline: 0 var(--margin);
+  }
+}
+
+@media (min-width: 1024px) {
+  .revealSmall {
+    grid-column: 2 / span 3;
+  }
+
+  .revealBig {
+    grid-column: 7 / -1;
+  }
+}
+
+/* 3. The first ten days ------------------------------------------------ */
+
+.days {
+  row-gap: var(--s-6);
+  margin-top: var(--s-8);
+}
+
+@media (min-width: 1024px) {
+  .days {
+    margin-top: var(--s-10);
+  }
+}
+
+.daysHead {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+}
+
+.dayList {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+  .daysHead {
+    grid-column: 1 / span 4;
+  }
+
+  .dayList {
+    grid-column: 5 / -1;
+  }
+}
+
+.day {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: var(--s-4);
+}
+
+@media (min-width: 768px) {
+  .day {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: var(--s-5);
+  }
+}
+
+.date {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.posts {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.post {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+}
+
+@media (min-width: 768px) {
+  .post {
+    grid-template-columns: minmax(0, 1fr) 160px;
+    gap: var(--s-5);
+    align-items: start;
+  }
+}
+
+.postLine {
+  max-inline-size: 52ch;
+}
+
+.postLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-4);
+  margin-top: var(--s-2);
+}
+
+.postLinks a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 32px;
+}
+
+.thumb {
+  inline-size: 160px;
+}
+
+/* 4. Sign-off --------------------------------------------------------- */
+
+.signOff {
+  row-gap: var(--s-6);
+  margin-top: var(--s-8);
+}
+
+@media (min-width: 1024px) {
+  .signOff {
+    margin-top: var(--s-10);
+  }
+}
+
+.postcard {
+  grid-column: 1 / span 3;
+  max-inline-size: 320px;
+}
+
+.signOffText {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+}
+
+@media (min-width: 768px) {
+  .signOff {
+    align-items: end;
+  }
+
+  .postcard {
+    grid-column: 1 / span 3;
+  }
+
+  .signOffText {
+    grid-column: 4 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .postcard {
+    grid-column: 2 / span 3;
+  }
+
+  .signOffText {
+    grid-column: 6 / span 6;
+  }
+}
+
+.kl {
+  color: var(--olive);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4) var(--s-6);
+  margin-top: var(--s-5);
+}

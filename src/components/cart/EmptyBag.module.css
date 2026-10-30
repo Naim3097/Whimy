@@ -1,0 +1,5 @@
+.empty {
+  display: grid;
+  gap: var(--s-6);
+  justify-items: start;
+}

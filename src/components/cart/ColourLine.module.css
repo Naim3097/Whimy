@@ -1,0 +1,39 @@
+/*
+ * Every part opens with a 12px lead: blank before the colour, a centred "·"
+ * before each later part. The line is pulled 12px left and clipped there, so
+ * a part that wraps to the start of a line drops its "·" with the lead.
+ */
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  min-inline-size: 0;
+  margin-inline-start: -12px;
+  clip-path: inset(-8px -8px -8px 12px);
+}
+
+/* chip + nickname + official name: one unit, split only if it alone is wider than the line. */
+.colour {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  min-inline-size: 0;
+  padding-inline-start: 12px;
+}
+
+.colour :global(.chip) {
+  align-self: center;
+  margin-inline-end: var(--s-2);
+}
+
+.part {
+  white-space: nowrap;
+}
+
+.part::before {
+  content: '·'; /* engines without alt text for content keep the dot */
+  content: '·' / '';
+  display: inline-block;
+  inline-size: 12px;
+  text-align: center;
+}

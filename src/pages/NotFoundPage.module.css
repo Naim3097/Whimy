@@ -1,0 +1,32 @@
+/* The utility template, kept local so the eager 404 doesn't pull in the policy pages. */
+.page {
+  padding-block: var(--s-6) 0;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-block-start: var(--s-7);
+  }
+}
+
+.message {
+  margin-top: var(--s-4);
+}
+
+/* 16px ink-2: the ways back in, then the three colours as mini cards. */
+.try {
+  margin-top: var(--s-4);
+  font-size: var(--t-body);
+  line-height: 1.6;
+}
+
+.next {
+  max-inline-size: 960px;
+  margin-top: var(--s-6);
+}
+
+.home {
+  display: inline-flex;
+  margin-bottom: var(--s-7);
+  text-decoration: none;
+}

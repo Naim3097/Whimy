@@ -1,0 +1,92 @@
+/* The footer owns the gap below the page. */
+.page {
+  padding-block: var(--s-6) 0;
+}
+
+.title {
+  margin-block-end: var(--s-6);
+}
+
+/* Below 1024: lines, then the summary with Checkout, then the extras. */
+.layout {
+  row-gap: var(--s-6);
+  align-items: start;
+}
+
+.items,
+.summary,
+.extras {
+  grid-column: 1 / -1;
+}
+
+.lines {
+  border-top: 1px solid var(--line);
+}
+
+.lastUndo {
+  margin-block-end: var(--s-6);
+}
+
+.extras {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.letter {
+  max-inline-size: var(--measure);
+}
+
+/* The summary is the page's one ivory surface: no border, no shadow. */
+.summary {
+  display: grid;
+  gap: var(--s-4);
+  padding: var(--s-5) 20px;
+  background: var(--ivory);
+}
+
+/* While the bag resolves: the summary's footprint, so Checkout doesn't drop in later. */
+.pendingSummary {
+  min-block-size: 340px;
+}
+
+.sums {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.blocked {
+  color: var(--error);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-block-start: var(--s-7);
+  }
+
+  .summary {
+    padding: var(--s-5);
+  }
+}
+
+/* Lines and extras in cols 1–7, the summary in cols 9–12 beside both; spare height goes to the extras row. */
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-rows: auto 1fr;
+  }
+
+  .items,
+  .extras {
+    grid-column: 1 / span 7;
+  }
+
+  .extras {
+    grid-row: 2;
+  }
+
+  .summary {
+    grid-column: 9 / span 4;
+    grid-row: 1 / span 2;
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-5));
+  }
+}

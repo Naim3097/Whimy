@@ -1,0 +1,350 @@
+/* A short end gap: the checkout footer brings its own margin. */
+.page {
+  padding-block: var(--s-6) var(--s-7);
+}
+
+.loading {
+  min-block-size: 60vh;
+}
+
+.title {
+  margin-block-end: var(--s-6);
+}
+
+.head {
+  display: grid;
+  gap: var(--s-2);
+  margin-block-end: var(--s-6);
+}
+
+.preview {
+  color: var(--olive);
+}
+
+/*
+ * The summary comes first in the source for the phone bar, which leads the
+ * page. From 1024 it sits right of the steps; where reading-flow is
+ * supported, Tab follows the grid instead: the steps, then the summary.
+ */
+.layout {
+  align-items: start;
+  row-gap: var(--s-6);
+  reading-flow: grid-rows;
+}
+
+.summary,
+.steps {
+  grid-column: 1 / -1;
+}
+
+/*
+ * Summary: below 1024px an ivory bar under the header that opens in place.
+ * Its height is set on :root, where html's scroll-padding below can read it.
+ */
+:global(:root) {
+  --summary-bar-h: 56px;
+}
+
+.summary {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 1;
+  margin-inline: calc(-1 * var(--margin));
+  border-bottom: 1px solid var(--line);
+  background: var(--ivory);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  inline-size: 100%;
+  min-block-size: var(--summary-bar-h);
+  padding: 0 var(--margin);
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: start;
+}
+
+.toggle:focus-visible {
+  outline-offset: -3px;
+}
+
+.toggle > span:first-child::after {
+  content: '+';
+  display: inline-block;
+  inline-size: 1ch;
+  margin-inline-start: var(--s-2);
+  font-weight: 400;
+  text-align: center;
+}
+
+.summary[data-open] .toggle > span:first-child::after {
+  content: '\2212';
+}
+
+.panel {
+  display: none;
+}
+
+.summary[data-open] .panel {
+  display: grid;
+  gap: var(--s-5);
+  max-block-size: calc(100dvh - var(--header-h) - var(--summary-bar-h));
+  padding: var(--s-2) var(--margin) var(--s-6);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* The bar already names the summary. */
+.summaryTitle {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.blocked {
+  color: var(--error);
+}
+
+/* Steps: the only progress indicator. Below 1024 the summary bar's rule sits above them. */
+
+.step {
+  padding-block: var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.stepHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.stepTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.stepNo {
+  min-inline-size: 1ch;
+  font-variant-numeric: tabular-nums;
+}
+
+.step[data-state='todo'] .stepTitle {
+  color: var(--ink-2);
+}
+
+/* A 44px target round a short word: the padding widens it and the margins keep the word in place. */
+.edit {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+  margin-block: -12px;
+  margin-inline: calc(-1 * var(--s-3));
+  padding-inline: var(--s-3);
+}
+
+.stepSummary {
+  display: grid;
+  gap: 2px;
+  margin-block-start: var(--s-2);
+  color: var(--ink-2);
+  font-size: var(--t-ui);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.stepBody {
+  display: grid;
+  gap: var(--s-5);
+  margin-block-start: var(--s-5);
+}
+
+.stepActions {
+  display: flex;
+}
+
+.continue {
+  inline-size: 100%;
+}
+
+/* Fields */
+.fields {
+  display: grid;
+  gap: 20px;
+}
+
+.pair {
+  display: grid;
+  gap: 20px;
+}
+
+.legend {
+  margin-block-end: var(--s-2);
+}
+
+.options {
+  border-block: 1px solid var(--line);
+}
+
+.options > * + * {
+  border-top: 1px solid var(--line);
+}
+
+.optionText {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.optionPrice {
+  flex: none;
+  text-align: right;
+}
+
+/* The bank select opens under FPX, lined up with the row's label. */
+.inline {
+  padding: 0 0 var(--s-4) 30px;
+}
+
+/* Errors: plain text behind a 2px rule, focused when they appear. */
+.problem {
+  display: grid;
+  gap: var(--s-2);
+  justify-items: start;
+  padding: var(--s-1) 0 var(--s-1) var(--s-4);
+  border-left: 2px solid var(--error);
+  color: var(--ink);
+  font-size: var(--t-ui);
+  line-height: 1.5;
+}
+
+.problem ul {
+  display: grid;
+  gap: var(--s-1);
+}
+
+/*
+ * Links and buttons in a problem box are 25px tall on its 21px lines, with
+ * nothing moved: the 4px between list lines leaves no overlap. An action
+ * alone under the message (Change payment method, Review your bag) has room
+ * for a 44px hit area.
+ */
+.problem :is(a, button) {
+  display: inline-block;
+  margin-block: -2px;
+  padding-block: 2px;
+}
+
+.problem > :is(a, button) {
+  position: relative;
+}
+
+.problem > :is(a, button)::after {
+  content: '';
+  position: absolute;
+  inset: -10px 0;
+}
+
+.place {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.letterEcho {
+  display: grid;
+  gap: var(--s-2);
+  justify-items: start;
+}
+
+.letterText {
+  white-space: pre-wrap;
+}
+
+/*
+ * Below 1024 the summary opens in place and pushes the form down. Scroll
+ * anchoring would instead scroll the page to keep the focused field still,
+ * hiding it under the open panel, so it is off while checkout is shown.
+ */
+@media (max-width: 1023px) {
+  :global(html):has(.page) {
+    overflow-anchor: none;
+  }
+
+  /*
+   * As base.css does for the header alone: focus and #links stop clear of the
+   * header and the closed bar under it, with its 1px rule (WCAG 2.4.11).
+   */
+  :global(html):has(.summary) {
+    scroll-padding-top: calc(var(--header-h) + var(--summary-bar-h) + 1px + var(--s-4));
+  }
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-block-start: var(--s-7);
+  }
+
+  .pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .continue {
+    inline-size: auto;
+    min-inline-size: 280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .steps {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+    border-top: 1px solid var(--line);
+  }
+
+  .summary {
+    grid-column: 9 / span 4;
+    grid-row: 1;
+    top: calc(var(--header-h) + var(--s-5));
+    z-index: auto;
+    margin-inline: 0;
+    border-bottom: 0;
+  }
+
+  .toggle {
+    display: none;
+  }
+
+  .panel,
+  .summary[data-open] .panel {
+    display: grid;
+    gap: var(--s-5);
+    max-block-size: calc(100dvh - var(--header-h) - var(--s-7));
+    padding: var(--s-5);
+    overflow-y: auto;
+  }
+
+  .summaryTitle {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+  }
+}

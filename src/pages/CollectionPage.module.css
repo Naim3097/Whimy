@@ -1,0 +1,43 @@
+/* A collection, after both references: a centred capital title, one bar, then the grid. */
+
+.pending {
+  min-block-size: 100vh;
+}
+
+.page {
+  padding-top: var(--s-7);
+}
+
+.head {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-2);
+  margin-bottom: var(--s-7);
+  text-align: center;
+}
+
+/* Christy Ng sets the collection title in 24px/500 capitals. */
+.title {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.intro {
+  max-inline-size: 48ch;
+  color: var(--ink-2);
+  font-size: var(--t-ui);
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-top: var(--s-8);
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}

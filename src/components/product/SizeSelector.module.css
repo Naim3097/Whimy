@@ -1,0 +1,155 @@
+/* The legend is floated so it lays out as a grid item beside "Size guide". */
+.group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: var(--s-4);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  float: left;
+  margin: 0 0 var(--s-3);
+  padding: 0;
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+/* A 44px target whose text sits on the legend's line. */
+.guide {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  min-block-size: 44px;
+  margin-top: -12.5px;
+  color: var(--ink);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+/*
+ * Every size on one row (SizeSelector sets --sizes). Squares are 48px where
+ * the row has room; on a narrow column (360px phones, a seven-size sample at
+ * 1024) the gap gives way first, then the squares, never below a 44px target.
+ */
+.grid {
+  --gap: min(var(--s-2), (100% - var(--sizes, 6) * 44px) / (var(--sizes, 6) - 1));
+  display: grid;
+  grid-template-columns: repeat(var(--sizes, 6), minmax(44px, 48px));
+  grid-column: 1 / -1;
+  gap: var(--s-2) max(4px, var(--gap));
+}
+
+.size {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-1) var(--ease-std),
+    border-color var(--dur-1) var(--ease-std),
+    color var(--dur-1) var(--ease-std);
+}
+
+.size:hover {
+  border-color: var(--ink);
+}
+
+.size:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.size:has(input:focus-visible) {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+}
+
+.size[data-out] {
+  border-color: var(--line-strong);
+  color: var(--ink-2);
+  cursor: not-allowed;
+}
+
+.size[data-out]:hover {
+  border-color: var(--line-strong);
+}
+
+/* A struck size that opens Notify me on click. */
+.size[data-notify] {
+  cursor: pointer;
+}
+
+.size[data-notify]:hover {
+  border-color: var(--ink-2);
+}
+
+/* Unavailable: a 1px diagonal strike, corner to corner. */
+.size[data-out]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  inline-size: 142%;
+  block-size: 1px;
+  background: var(--ink-2);
+  translate: -50% -50%;
+  rotate: -45deg;
+}
+
+.message {
+  grid-column: 1 / -1;
+  margin: var(--s-3) 0 0;
+}
+
+.message:empty {
+  margin: 0;
+}
+
+.notify {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+}
+
+.notify p {
+  margin: 0;
+}
+
+.notifyForm {
+  margin: 0;
+}
+
+.notifyRow {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.notifyRow :global(.input) {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.notifyRow :global(.btn) {
+  flex: none;
+}
+
+.done {
+  color: var(--ink);
+}

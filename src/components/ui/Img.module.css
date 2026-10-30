@@ -1,0 +1,57 @@
+/* Zero specificity, so a caller's class can change the ratio, size or alignment of the box. */
+:where(.box) {
+  position: relative;
+  display: block;
+  aspect-ratio: var(--img-ratio);
+  overflow: hidden;
+  background-color: var(--img-ground, var(--ivory));
+}
+
+.img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+
+.img[data-shown] {
+  opacity: 1;
+}
+
+/* A focused photo link keeps a paper keyline inside the image, so the ring reads on dark frames. */
+.box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+:global(:is(a, button):focus-visible) .box::after {
+  box-shadow: inset 0 0 0 2px var(--paper);
+}
+
+/* A photo that could not load: the empty studio cyc, labelled. Same box, same ratio. */
+.failed {
+  background-color: var(--studio);
+}
+
+/*
+ * Out of flow, so a card link's underline never reaches the label.
+ * --ink, not --ink-2: --ink-2 on --studio is 4.2:1, under AA for 14px text.
+ */
+.failedText {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--s-4);
+  color: var(--ink);
+  text-align: center;
+}
+
+/* Art direction: the <picture> adds no box of its own, so the image fills ours as before. */
+.picture {
+  display: contents;
+}

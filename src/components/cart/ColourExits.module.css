@@ -1,0 +1,25 @@
+.exits {
+  container-type: inline-size;
+  inline-size: 100%;
+}
+
+.heading {
+  margin-block-end: var(--s-4);
+}
+
+.list {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.ghost {
+  block-size: 80px;
+  background: var(--ivory);
+}
+
+@container (min-width: 600px) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-5);
+  }
+}

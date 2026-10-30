@@ -1,0 +1,80 @@
+/* A quiet presentation control: the word, then A and B as two small squares in the current colour. */
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: inherit;
+  font-size: var(--t-cap);
+  line-height: 1;
+}
+
+.label {
+  opacity: 0.8;
+}
+
+.options {
+  display: flex;
+  gap: 2px;
+}
+
+.option {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 24px;
+  block-size: 24px;
+  border: 1px solid currentColor;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity var(--dur-1) var(--ease-std);
+}
+
+/*
+ * A 44px pointer area for each 24px square. The squares are 2px apart, so each area reaches
+ * outwards (A's over the word "Homepage", B's past its end) and the two meet in the gap.
+ * Insets are from inside the 1px border.
+ */
+.option::before {
+  content: '';
+  position: absolute;
+  inset-block: -11px;
+}
+
+.options > li:first-child .option::before {
+  inset-inline: -20px -2px;
+}
+
+.options > li:last-child .option::before {
+  inset-inline: -2px -20px;
+}
+
+/* A sets its letters in Christy Ng's 500; B keeps Jimmy Choo's 600. */
+:global(:root[data-concept='a']) .option {
+  font-weight: 500;
+}
+
+/* B's bar is 26px, so its areas stay inside it rather than reach into the header below. */
+:global(:root[data-concept='b']) .option::before {
+  inset-block: -1px;
+}
+
+.option:not([aria-current]) {
+  border-color: transparent;
+  opacity: 0.75;
+}
+
+.option:not([aria-current]):hover {
+  opacity: 1;
+}
+
+.option:focus-visible {
+  outline-color: currentColor;
+  outline-offset: 2px;
+}
+
+@media print {
+  .switch {
+    display: none;
+  }
+}

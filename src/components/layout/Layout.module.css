@@ -1,0 +1,28 @@
+/* Header, page and footer fill at least the window: a short page never leaves paper under the footer. */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100dvh;
+}
+
+.main {
+  display: block;
+  flex: 1 0 auto;
+}
+
+/* While a page is still arriving (a code-split page not rendered yet, or data marked aria-busy),
+   the footer waits, so it never shows in the first screen and then slides away. It appears once,
+   in its place: its own margin is the only gap above it, on short pages too. */
+.main:empty + footer,
+.main:has([aria-busy='true']:not(button)) + footer {
+  display: none;
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* A heading focused after a page change (Layout.tsx) is a reading position, not a control. */
+.main :global([data-route-focus]:focus) {
+  outline: none;
+}

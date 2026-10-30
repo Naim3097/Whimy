@@ -1,0 +1,331 @@
+.gallery {
+  position: relative;
+  min-inline-size: 0;
+}
+
+/*
+ * Phones: one full-bleed strip of 4:5 frames, snapping frame by frame.
+ * A colour change swaps and reorders frames (the group photo can move from
+ * the 2-up row to the lead), so the browser must not anchor scrolling to
+ * them: it would follow a moved frame up the page.
+ */
+.frames {
+  position: relative;
+  display: flex;
+  overflow-anchor: none;
+  gap: 2px;
+  margin: 0 calc(-1 * var(--margin));
+  padding: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.frames::-webkit-scrollbar {
+  display: none;
+}
+
+.frame {
+  flex: 0 0 100%;
+  min-inline-size: 0;
+  scroll-snap-align: start;
+}
+
+.figure {
+  margin: 0;
+}
+
+.media {
+  position: relative;
+  display: block;
+}
+
+/* 4:5 at most: under 6% of a Whimy portrait's height. */
+.crop {
+  aspect-ratio: 4 / 5;
+}
+
+/* The whole photograph is the zoom target; the image itself stays in the reading order. */
+.hit {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+/* Inside the strip the ring sits within the frame, after a paper keyline. */
+.hit:focus-visible {
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px var(--paper);
+}
+
+/* Room for two lines under every frame, so the strip and the 2-up row are one height in every colour. */
+.caption {
+  min-block-size: 2lh;
+  padding-inline: var(--margin);
+}
+
+.count {
+  margin-inline-end: var(--s-3);
+  color: var(--ink);
+}
+
+/* The colour's note: under the lead from 1024px, in the buy box below that (ProductPage). */
+.colourNote {
+  display: block;
+}
+
+.note {
+  display: block;
+  max-inline-size: 34ch;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.source {
+  display: inline-block;
+  margin-top: var(--s-2);
+}
+
+.leadNote {
+  display: none;
+}
+
+.steps {
+  display: flex;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.step {
+  min-block-size: 44px;
+  padding: 0 var(--s-2);
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 6px;
+  transition:
+    text-decoration-color var(--dur-1) var(--ease-std),
+    text-underline-offset var(--dur-1) var(--ease-std);
+}
+
+.step:first-child {
+  margin-inline-start: calc(-1 * var(--s-2));
+}
+
+.step:hover {
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+}
+
+/* Touch screens swipe; the buttons stay for keyboards and appear when focused. */
+@media (hover: none) {
+  .steps:not(:focus-within) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* Tablet: two frames side by side across the full width. */
+@media (min-width: 768px) {
+  .frames {
+    gap: var(--s-2);
+    margin-inline: 0;
+  }
+
+  .frame {
+    flex-basis: calc(50% - var(--s-2) / 2);
+  }
+
+  /* A sample's one photograph fills its column (the page sets the buy box beside it). */
+  .frame:only-child {
+    flex-basis: 100%;
+  }
+
+  .caption {
+    padding-inline: 0;
+  }
+}
+
+/* Desktop: a stack. The lead at full width, then a 2-up row of 4:5 frames. */
+@media (min-width: 1024px) {
+  .gallery {
+    max-inline-size: 704px;
+  }
+
+  .frames {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-6) var(--s-2);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .frame[data-shape='lead'] {
+    grid-column: 1 / -1;
+  }
+
+  /*
+   * Every lead is one fixed 3:4 box (Whimy's portraits are 0.753-0.769, so at
+   * most 2.5% of the width goes), and every colour has a lead and one 2-up row:
+   * the stack keeps its height when the colour changes. A sample's stock photo stays 4:5.
+   */
+  .frame[data-shape='lead'] .crop {
+    aspect-ratio: 3 / 4;
+  }
+
+  .frame[data-sample] .crop {
+    aspect-ratio: 4 / 5;
+  }
+
+  .frame[data-shape='lead'] .caption {
+    min-block-size: 0;
+  }
+
+  .hit:focus-visible {
+    outline-offset: 3px;
+  }
+
+  .count,
+  .steps,
+  .stripLabel {
+    display: none;
+  }
+
+  .leadNote {
+    display: block;
+    margin-top: var(--s-1);
+  }
+
+  .leadNote .note {
+    max-inline-size: 48ch;
+  }
+}
+
+/* Zoom ---------------------------------------------------------------- */
+
+.zoom {
+  position: fixed;
+  inset: 0;
+  inline-size: 100%;
+  max-inline-size: none;
+  block-size: 100dvh;
+  max-block-size: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  color: var(--ink);
+  opacity: 0;
+  translate: 0 8px;
+  transition:
+    opacity var(--dur-2) var(--ease-std),
+    translate var(--dur-2) var(--ease-std),
+    overlay var(--dur-2) allow-discrete,
+    display var(--dur-2) allow-discrete;
+}
+
+.zoom[open] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
+  .zoom[open] {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+/* Literal paper: older engines don't pass custom properties into ::backdrop. */
+.zoom::backdrop {
+  background: #f3efe4;
+}
+
+.zoomBar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-block-size: var(--header-h);
+  padding-inline: var(--margin);
+  border-bottom: 1px solid var(--line);
+  background: var(--ivory);
+}
+
+.zoomTitle {
+  color: var(--ink-2);
+  font-weight: 400;
+}
+
+.zoomActions {
+  display: flex;
+  gap: var(--s-1);
+  margin-inline-end: calc(-1 * var(--s-3));
+}
+
+.zoomButton {
+  min-block-size: 44px;
+  padding: 0 var(--s-3);
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 6px;
+  transition:
+    text-decoration-color var(--dur-1) var(--ease-std),
+    text-underline-offset var(--dur-1) var(--ease-std);
+}
+
+.zoomButton:hover {
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+}
+
+/*
+ * One column as wide as the photograph can be: the screen, its 1x cap, or the
+ * height left under the bar times its ratio. Photo and caption fit one screen.
+ */
+.zoomFigure {
+  --zoom-room: calc(100dvh - var(--header-h) - 2 * var(--s-5) - 2.5rem);
+  display: grid;
+  grid-template-columns: min(100%, var(--zoom-cap), var(--zoom-room) * var(--zoom-ratio));
+  align-content: center;
+  justify-content: center;
+  min-block-size: calc(100dvh - var(--header-h) - 1px);
+  margin: 0;
+  padding: var(--s-5) var(--margin);
+}
+
+/* Phones: edge to edge, as wide as the strip; pinch to look closer. */
+@media (max-width: 767px) {
+  .zoomFigure {
+    padding-inline: 0;
+  }
+
+  .zoomFigure img {
+    touch-action: pinch-zoom;
+  }
+
+  .zoomCaption {
+    padding-inline: var(--margin);
+  }
+}

@@ -1,0 +1,627 @@
+/*
+ * Concept A, after Christy Ng. Measures come from the October 2026 study of
+ * christyng.com: 32px/500 capitals on the slides, 45px white boxes, doors that
+ * widen over 1s, a 60px pale band for the product row, inset panels for the
+ * last two blocks. Whimy's Fell italic speaks the one line on each slide.
+ */
+
+/* minmax(0, 1fr): the column is the page's width, whatever the slideshow's track holds beside it. */
+.home {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 1. The slideshow ---------------------------------------------------- */
+
+.hero {
+  position: relative;
+  overflow: clip;
+}
+
+/* touch-action: pan-y keeps vertical scrolling for the browser and hands sideways swipes to the show. */
+.track {
+  display: flex;
+  touch-action: pan-y;
+  transform: translateX(calc(var(--index) * -100%));
+  transition: transform 800ms var(--ease-slide);
+}
+
+/* Reduced motion: a slide simply replaces the last (the show never plays on its own either). */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transition: none;
+  }
+}
+
+/* Phones: the photograph's row keeps its 4:5 and the field takes any extra height, which the
+   track hands every slide when one caption wraps to more lines than the others. */
+.slide {
+  --slide-pos: var(--pos-wide);
+  display: grid;
+  flex: 0 0 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  min-inline-size: 0;
+}
+
+/* Tablets: each half is a tall, narrow slice of its photograph, so it takes its own crop. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .slide {
+    --slide-pos: var(--pos-narrow);
+  }
+}
+
+.heroMedia {
+  display: block;
+}
+
+.heroImg {
+  aspect-ratio: 4 / 5;
+}
+
+.field {
+  display: grid;
+  place-items: center;
+  padding: var(--s-6) var(--margin) var(--s-8);
+  background: var(--field);
+  color: var(--field-ink);
+}
+
+.caption {
+  display: grid;
+  justify-items: center;
+  max-inline-size: 400px;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 1.625rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.heroLine {
+  margin-top: var(--s-3);
+  margin-bottom: var(--s-6);
+  font-family: var(--font-voice);
+  font-size: 1.375rem;
+  font-style: italic;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* Wide screens: the portrait takes one half, its colour the other, the whole slide one viewport
+   less a sliver, so the doors below peek in (as Christy Ng's tiles do under its slideshow). */
+@media (min-width: 768px) {
+  /* One row exactly as tall as the slide, so the photograph's 100% resolves and object-position crops. */
+  .slide {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(0, 1fr);
+    block-size: clamp(520px, calc(100svh - var(--header-h) - 36px - 72px), 820px);
+  }
+
+  .slide[data-side='end'] .heroMedia {
+    order: 2;
+  }
+
+  .heroMedia,
+  .heroImg {
+    block-size: 100%;
+  }
+
+  .heroImg {
+    aspect-ratio: auto;
+  }
+
+  .field {
+    padding: var(--s-6);
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroLine {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dots bottom-right, after Christy Ng: filled at rest, a hollow ring for the current slide.
+   They take the colour of what they sit on (the field, or the photograph's grass). */
+/* First in the markup, so z-index lifts them over the track (its transform paints it above them). */
+.controls {
+  position: absolute;
+  inset: auto var(--margin) var(--s-4) auto;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--controls-ink, var(--paper));
+}
+
+/* Phones: at the top of the colour field, just under the photograph (4:5 of the width), so they
+   show in the first screen; the field's padding makes room and its ink colours them. */
+@media (max-width: 767px) {
+  .controls {
+    inset: calc(125vw + 2px) var(--margin) auto auto;
+    color: var(--field-ink-now);
+  }
+
+  .field {
+    padding-top: var(--s-7);
+  }
+}
+
+.controls :focus-visible {
+  outline-color: currentColor;
+}
+
+.pause {
+  min-block-size: 44px;
+  padding: 0 var(--s-2);
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: var(--t-cap);
+  font-weight: 500;
+  letter-spacing: var(--caps-tracking);
+  text-transform: uppercase;
+}
+
+.dots {
+  display: flex;
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+.dot::before {
+  content: '';
+  inline-size: 10px;
+  block-size: 10px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: currentColor;
+  transition: background-color var(--dur-2) var(--ease-std);
+}
+
+.dot[aria-current]::before {
+  background: transparent;
+}
+
+/* 2. Four doors ------------------------------------------------------- */
+
+.doorList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.doorLink {
+  position: relative;
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.doorImg {
+  aspect-ratio: 4 / 5;
+}
+
+/* The focus ring lies on a layer above the photograph (an inset outline on the link itself is
+   painted under the image box): paper outside, ink inside, so it reads on any photograph. */
+.doorLink:focus-visible {
+  outline: none;
+}
+
+.doorLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.doorLink:focus-visible::after {
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px var(--paper);
+}
+
+/* Below 1024px the doors are small 2 × 2 tiles, so the words sit under each photograph rather
+   than over it: no corner of these photographs stays light at every width (bare ink measured as
+   low as 0.9:1 on phones), and a paper box would cover too much of a small tile. */
+.doorText {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: var(--s-3) var(--s-2) var(--s-4);
+  text-align: center;
+}
+
+.doorTitle {
+  font-size: var(--t-small);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.doorCta {
+  font-size: var(--t-cap);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: var(--caps-tracking);
+  text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+  /* Christy Ng's tiles are as tall as the screen under its header. */
+  .doorList {
+    display: flex;
+    block-size: max(480px, calc(100svh - var(--header-h)));
+  }
+
+  .door {
+    flex: 1 1 0;
+    min-inline-size: 0;
+    transition: flex-grow 1s var(--ease-std);
+  }
+
+  .door:hover,
+  .door:focus-within {
+    flex-grow: 3;
+  }
+
+  .doorLink,
+  .doorImg {
+    block-size: 100%;
+  }
+
+  .doorImg {
+    aspect-ratio: auto;
+  }
+
+  /* Top-right on the tall doors, as Christy Ng sets its tile titles, on a small paper ground (its
+     white boxes): the photographs re-crop as the doors widen, so the words carry their own ground.
+     The box's measure follows the screen, not the door, and fits the narrowest door (a sixth of
+     the row while another is open), so its words never re-wrap as the doors widen and narrow. */
+  .doorText {
+    position: absolute;
+    inset: 15px 15px auto auto;
+    justify-items: end;
+    inline-size: max-content;
+    max-inline-size: min(200px, 100vw / 6 - 40px);
+    padding: var(--s-2) var(--s-3);
+    background: var(--paper);
+    text-align: end;
+    text-wrap: balance;
+  }
+
+  .doorTitle {
+    font-size: 1.125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door {
+    transition: none;
+  }
+}
+
+/* 3. The product row on its band -------------------------------------- */
+
+.band {
+  padding-block: 60px;
+  background: var(--ivory);
+}
+
+.bandHead {
+  margin-bottom: var(--s-7);
+  text-align: center;
+}
+
+.heading {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.subline {
+  margin-top: var(--s-2);
+  font-size: var(--t-body);
+  line-height: 1.5;
+}
+
+.products {
+  display: grid;
+  grid-auto-columns: min(78vw, 340px);
+  grid-auto-flow: column;
+  gap: var(--gutter);
+  margin-inline: calc(-1 * var(--margin));
+  padding-inline: var(--margin);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: var(--margin);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+/* Positioned, so the visually hidden colour name in each link stays inside the scrolling row
+   (an absolute child of an unpositioned item escapes the row's clip and widens a phone's page). */
+.product {
+  position: relative;
+  display: grid;
+  align-content: start;
+  scroll-snap-align: start;
+  text-align: center;
+}
+
+.productMedia {
+  display: block;
+}
+
+.productImg {
+  aspect-ratio: 4 / 5;
+}
+
+.productName {
+  margin-top: var(--s-4);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.productLink {
+  color: inherit;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.productLink:hover {
+  text-decoration-color: currentColor;
+}
+
+.productColour {
+  margin-top: var(--s-1);
+  font-size: var(--t-cap);
+  line-height: 1.5;
+}
+
+.productPrice {
+  margin-top: var(--s-1);
+  font-size: var(--t-cap);
+  line-height: 1.5;
+}
+
+.tileSkeleton {
+  aspect-ratio: 4 / 5;
+}
+
+.bandAction {
+  margin-top: var(--s-7);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .products {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 340px));
+    justify-content: center;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+}
+
+/* 4. Two editorial panels --------------------------------------------- */
+
+.pair {
+  display: grid;
+}
+
+/* 3:4 below 1024px, the photographs' own shape, so neither pair of shoes is cut at the sides. */
+.panel {
+  position: relative;
+  aspect-ratio: 3 / 4;
+}
+
+.panelImg {
+  position: absolute;
+  inset: 0;
+  block-size: 100%;
+  aspect-ratio: auto;
+}
+
+/* The shoes fill the top of each photograph, so the caption sits low, on the trousers and grass. */
+.panelText {
+  position: absolute;
+  inset: auto var(--margin) 4%;
+  display: grid;
+  justify-items: center;
+  gap: var(--s-5);
+  color: var(--paper);
+  text-align: center;
+}
+
+/* Christy Ng's 24px section capitals: large text, so the 3:1 it needs holds over the pink
+   panel's satin trousers (measured 4.0:1 or more there, 4.7:1 or more on the brown, 390–1440px). */
+.panelTitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    block-size: clamp(520px, 85svh, 820px);
+    aspect-ratio: auto;
+  }
+}
+
+/* 5 and 6. Inset panels ------------------------------------------------ */
+
+/* Two panels, as Christy Ng's blog and store locator are, 60px apart (the page's rhythm). */
+.insets {
+  display: grid;
+  gap: 60px;
+  margin-top: 60px;
+}
+
+.inset {
+  padding: var(--s-7) var(--margin);
+  background: var(--ivory);
+}
+
+.inset > .heading {
+  text-align: center;
+}
+
+.posts {
+  display: grid;
+  gap: var(--s-7);
+  margin-top: var(--s-6);
+}
+
+/* A column whose link keeps to the foot, so the three links line up whatever runs above them. */
+.post {
+  display: flex;
+  flex-direction: column;
+}
+
+.post > :nth-last-child(2) {
+  margin-bottom: var(--s-3);
+}
+
+.post .readMore {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.postImg {
+  aspect-ratio: 4 / 5;
+}
+
+.postDate {
+  margin-top: var(--s-4);
+  color: var(--ink-2);
+  font-size: var(--t-cap);
+  line-height: 1.4;
+}
+
+.postTitle {
+  margin-top: var(--s-2);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Under the title, so a note on one card never pushes its title below its neighbours'. */
+.postNote {
+  margin-top: var(--s-1);
+  color: var(--ink-2);
+  font-size: var(--t-cap);
+  line-height: 1.4;
+}
+
+.readMore {
+  justify-self: start;
+  margin-top: var(--s-3);
+  padding-block: var(--s-2);
+  color: inherit;
+  font-size: var(--t-cap);
+  font-weight: 500;
+  letter-spacing: var(--caps-tracking);
+  text-transform: uppercase;
+  text-decoration: underline 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.readMore:hover {
+  text-decoration-color: transparent;
+}
+
+.where {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.whereText {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  text-align: center;
+}
+
+.whereText p {
+  max-inline-size: 44ch;
+  font-size: var(--t-ui);
+  line-height: 1.6;
+}
+
+.whereText .readMore {
+  justify-self: center;
+}
+
+.whereImg {
+  aspect-ratio: 16 / 9;
+}
+
+@media (min-width: 768px) {
+  .insets {
+    margin-inline: var(--margin);
+  }
+
+  .inset {
+    padding: 72px var(--s-7) var(--s-7);
+  }
+
+  .posts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-6);
+  }
+
+  .where {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: center;
+    gap: var(--s-7);
+    padding: var(--s-7);
+  }
+
+  .whereText {
+    justify-items: start;
+    text-align: start;
+  }
+
+  .whereText .readMore {
+    justify-self: start;
+  }
+}

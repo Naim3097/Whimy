@@ -1,0 +1,27 @@
+.lines {
+  border-top: 1px solid var(--line);
+}
+
+/* The removed line's place: one row on the same hairlines, until Undo or the next removal. Undo keeps the right edge, where the price was. */
+.undo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--s-5);
+  padding-block: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.message {
+  min-inline-size: 0;
+  padding-block: var(--s-2);
+  color: var(--ink-2);
+  font-size: var(--t-ui);
+  line-height: 1.5;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}

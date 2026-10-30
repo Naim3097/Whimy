@@ -1,0 +1,15 @@
+/* A listing runs the full page width (`.wrap`, like /shop): a 26px title, one sentence, then the grid. The footer owns the paper below. */
+.page {
+  display: grid;
+  gap: var(--s-6);
+  padding-block: var(--s-7) 0;
+}
+
+.head {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.pending {
+  min-block-size: 60vh;
+}

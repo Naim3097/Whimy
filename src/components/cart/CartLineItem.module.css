@@ -1,0 +1,97 @@
+/*
+ * Name and price share the top row; the colour line and any notes take the
+ * full width under them, so "choco · Rich Brown" keeps to one line even in
+ * the phone drawer; the actions sit below.
+ */
+.line {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  grid-template-areas:
+    'thumb name price'
+    'thumb detail detail'
+    'thumb actions actions';
+  grid-template-rows: auto auto 1fr;
+  column-gap: var(--s-4);
+  row-gap: var(--s-1);
+  padding-block: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.thumb {
+  grid-area: thumb;
+  display: block;
+  align-self: start;
+  inline-size: 72px;
+}
+
+.photo,
+.blank {
+  display: block;
+  inline-size: 72px;
+  aspect-ratio: 4 / 5;
+}
+
+.blank {
+  background: var(--studio);
+}
+
+.ghost {
+  aspect-ratio: 4 / 5;
+  background: var(--ivory);
+}
+
+/* Name, colour and the 44px action row of a real line. */
+.pending {
+  grid-column: 2 / -1;
+  grid-row: 1 / -1;
+  block-size: 104px;
+}
+
+.name {
+  grid-area: name;
+  min-inline-size: 0;
+  color: var(--ink);
+}
+
+.detail {
+  grid-area: detail;
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.problem {
+  color: var(--error);
+}
+
+.price {
+  grid-area: price;
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--s-5);
+  row-gap: var(--s-1);
+  margin-block-start: var(--s-2);
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+.gone {
+  grid-template-areas: none;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: none;
+  align-items: center;
+}

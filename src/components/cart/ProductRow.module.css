@@ -1,0 +1,57 @@
+/* The bag line's grid (CartLineItem.module.css), for rows outside the bag. */
+.row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  grid-template-areas:
+    'thumb name price'
+    'thumb colour colour'
+    'thumb actions actions';
+  grid-template-rows: auto auto 1fr;
+  column-gap: var(--s-4);
+  row-gap: var(--s-1);
+  min-block-size: 130px;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.thumb {
+  grid-area: thumb;
+  display: block;
+  align-self: start;
+  inline-size: 72px;
+}
+
+.photo,
+.blank {
+  display: block;
+  inline-size: 72px;
+  aspect-ratio: 4 / 5;
+}
+
+.blank {
+  background: var(--studio);
+}
+
+.name {
+  grid-area: name;
+  min-inline-size: 0;
+}
+
+.colour {
+  grid-area: colour;
+}
+
+.price {
+  grid-area: price;
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.actions {
+  grid-area: actions;
+  align-self: end;
+  min-inline-size: 0;
+  margin-block-start: var(--s-2);
+}

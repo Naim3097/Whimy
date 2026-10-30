@@ -1,0 +1,18 @@
+.figure {
+  display: block;
+  margin: 0;
+}
+
+.media {
+  position: relative;
+  display: block;
+}
+
+.portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.hit {
+  position: absolute;
+  inset: 0;
+}

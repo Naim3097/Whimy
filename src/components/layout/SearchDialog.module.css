@@ -1,0 +1,367 @@
+/* A top sheet on paper: overrides the modal surface from components.css. */
+:global(dialog.surface).sheet {
+  inset: 0 0 auto;
+  margin: 0;
+  inline-size: 100%;
+  max-block-size: 100dvh;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  translate: 0 -8px;
+}
+
+:global(dialog.surface).sheet[open] {
+  translate: 0 0;
+}
+
+@starting-style {
+  :global(dialog.surface).sheet[open] {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+}
+
+/* Phones open it from the menu: the whole screen, like the menu itself. */
+@media (max-width: 767px) {
+  :global(dialog.surface).sheet {
+    block-size: 100dvh;
+  }
+
+  .sheet :global(.dialog-frame) {
+    block-size: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  :global(dialog.surface).sheet {
+    margin: 0;
+    inline-size: 100%;
+    max-block-size: min(88dvh, 760px);
+  }
+}
+
+/* The Close word in the bar stands in for the dialog's own head. */
+.sheet :global(.dialog-head) {
+  display: none;
+}
+
+.inner {
+  padding-block: 0 calc(var(--s-7) + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    padding-block-end: var(--s-8);
+  }
+}
+
+/* The bar sits on the header's line: the field starts where "Shop" (or "Menu") was, its rule
+   falls where the header hairline was, and "Close" ends where "Bag" ended. */
+.bar {
+  display: flex;
+  align-items: stretch;
+  gap: var(--s-5);
+  min-block-size: var(--header-h);
+}
+
+.form {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--s-4);
+  min-inline-size: 0;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.input {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1.375rem;
+  font-weight: 400;
+  line-height: 1.3;
+  appearance: none;
+}
+
+/* The site's ring, 1px out: the field stands 44px tall in the middle of the bar, so the ring
+   clears both the top of the sheet (which would clip it) and the field's own rule. */
+.input:focus-visible {
+  outline-offset: 1px;
+}
+
+.input::placeholder {
+  color: var(--ink-2);
+  opacity: 1;
+}
+
+.input::-webkit-search-cancel-button,
+.input::-webkit-search-decoration {
+  appearance: none;
+}
+
+.barWord {
+  flex: none;
+  align-self: center;
+  min-block-size: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 6px;
+  transition:
+    text-underline-offset var(--dur-1) var(--ease-std),
+    text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.barWord:hover,
+.barWord:focus-visible {
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+}
+
+/* Two panes: one column below 1024; from 1024 on the Shop panel's columns,
+   words in 1–4 and pairs in 7–12. */
+.panes {
+  display: grid;
+  gap: var(--s-6);
+  max-inline-size: 640px;
+  margin-top: var(--s-6);
+}
+
+.pane {
+  display: grid;
+  align-content: start;
+  gap: var(--s-5);
+}
+
+.pane:empty {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .wideOnly {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .panes {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    max-inline-size: none;
+  }
+
+  .pane {
+    grid-column: 1 / span 4;
+  }
+
+  .pairs {
+    grid-column: 7 / -1;
+  }
+}
+
+.label {
+  margin-bottom: var(--s-2);
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.nick {
+  font-family: var(--font-voice);
+  font-size: var(--v-0);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Plain text links separated by middots. Each word after the first opens with a 28px lead
+   holding its "·". The list is pulled 28px left and clipped 8px short of its column, so a
+   word that wraps to the start of a line drops its "·" but keeps its focus ring. */
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-inline-start: -28px;
+  clip-path: inset(-8px -8px -8px 20px);
+  font-size: var(--t-ui);
+  line-height: 1.4;
+}
+
+.words > li {
+  display: flex;
+  align-items: baseline;
+}
+
+.words > li:first-child {
+  padding-inline-start: 28px;
+}
+
+.words > li + li::before {
+  content: '·'; /* engines without alt text for content keep the dot */
+  content: '·' / '';
+  flex: none;
+  inline-size: 28px;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+.words a {
+  display: inline-block;
+  padding-block: 10px;
+}
+
+/* In the wide left pane the words stand in a column on 36px rows, quiet until hovered,
+   like the Shop panel's and the footer's lists. */
+@media (min-width: 1024px) {
+  .words {
+    display: grid;
+    justify-items: start;
+    margin-inline-start: 0;
+    clip-path: none;
+  }
+
+  .words > li:first-child {
+    padding-inline-start: 0;
+  }
+
+  .words > li + li::before {
+    content: none;
+  }
+
+  .words a {
+    padding-block: 8px;
+    line-height: 20px;
+  }
+
+  .words :global(.link) {
+    text-decoration-color: transparent;
+  }
+
+  .words :global(.link):hover,
+  .words :global(.link):focus-visible {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Mini cards: 64px square, name, colour and price on hairlines. */
+.minis {
+  border-top: 1px solid var(--line);
+}
+
+.mini {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--s-4);
+  padding-block: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.thumb {
+  inline-size: 64px;
+  aspect-ratio: 1;
+}
+
+.miniLink {
+  display: grid;
+  gap: 2px;
+  min-inline-size: 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* The whole row is the link's pointer target. */
+.miniLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.miniLink:focus-visible {
+  outline: none;
+}
+
+.miniLink:focus-visible::after {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+}
+
+.miniName {
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 6px;
+  transition:
+    text-underline-offset var(--dur-1) var(--ease-std),
+    text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.mini:hover .miniName {
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+}
+
+/* *choco* · Rich Brown, as the bag's ColourLine: the name's "·" sits in a 12px lead, clipped
+   away (2px short of the column, for the italic's overhang) when the name wraps to a new line. */
+.miniColour {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-inline-start: -12px;
+  clip-path: inset(-8px -8px -8px 10px);
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.miniColour > :first-child {
+  padding-inline-start: 12px;
+}
+
+.miniColour .nick {
+  color: var(--ink);
+}
+
+.official::before {
+  content: '·'; /* engines without alt text for content keep the dot */
+  content: '·' / '';
+  display: inline-block;
+  inline-size: 12px;
+  text-align: center;
+}
+
+.miniPrice {
+  font-size: var(--t-small);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* The provenance mark stays clickable above the stretched link. */
+.mini :global(button) {
+  position: relative;
+  z-index: 1;
+}
+
+.empty {
+  font-size: var(--t-body);
+  line-height: 1.6;
+}
+
+.all {
+  font-size: var(--t-ui);
+  font-weight: 500;
+}

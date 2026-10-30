@@ -1,0 +1,232 @@
+/* Sticky solid paper. The hairline fades in once the page moves. */
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  background: var(--paper);
+  color: var(--ink);
+  transition:
+    background-color var(--dur-2) var(--ease-std),
+    color var(--dur-2) var(--ease-std);
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  block-size: 1px;
+  background: var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-1) var(--ease-std);
+}
+
+.header[data-lined]::after {
+  opacity: 1;
+}
+
+/* Concept B over its own campaign: clear, as Jimmy Choo's. Its words stay ink: the campaign
+   opens on a pale sky, where ink reads (7.6:1 or more, measured from 360 to 2560px wide) and
+   white would not. The meadow is framed so her head sits below the header's words. */
+.header[data-clear] {
+  background: transparent;
+}
+
+/* B slides away on the way down and back on the way up (0.3s, as Jimmy Choo's); focus brings it back. */
+.header[data-concept='b'] {
+  transition:
+    background-color var(--dur-2) var(--ease-std),
+    color var(--dur-2) var(--ease-std),
+    translate 300ms var(--ease-std);
+}
+
+.header[data-hidden]:not(:focus-within) {
+  translate: 0 -100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header[data-concept='b'] {
+    transition: none;
+  }
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--s-4);
+  block-size: var(--header-h);
+}
+
+.start,
+.end {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.home {
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  min-block-size: 44px;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Fell Roman, lowercase, like the embroidered "whimy" patch. */
+.wordmark {
+  font-family: var(--font-voice);
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.header[data-concept='b'] .wordmark {
+  font-size: 2rem;
+}
+
+/* A glyph and, in B, its word: Jimmy Choo's 12px Franklin. 6px side padding is given back
+   by the margin, so the focus ring has air without moving the glyph. */
+.tool {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-block-size: 44px;
+  margin-inline: -6px;
+  padding: 0 6px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: var(--font-ui);
+  font-size: var(--t-cap);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* A glyph on its own is 32-34px wide; its pointer area reaches 44px. Glyphs stand 24px apart,
+   so neighbouring areas meet without overlapping. */
+.tool::before {
+  content: '';
+  position: absolute;
+  inset: 0 min(0px, (100% - 44px) / 2);
+}
+
+.tool svg {
+  flex: none;
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.label {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur-1) var(--ease-std);
+}
+
+.tool:hover .label {
+  text-decoration-color: currentColor;
+}
+
+.count {
+  font-size: var(--t-cap);
+  font-weight: 500;
+}
+
+.back {
+  display: inline-block;
+  padding-block: 12px;
+  color: inherit;
+  font-size: var(--t-ui);
+  font-weight: 500;
+  text-decoration: underline 1px;
+  text-underline-offset: 5px;
+}
+
+/* B: Jimmy Choo's 24px glyphs with 14px/600 words; a 1.5px line grows from the word's centre on hover. */
+.header[data-concept='b'] .tool {
+  gap: 6px;
+  font-size: var(--b-text);
+  font-weight: 600;
+}
+
+.header[data-concept='b'] .tool svg {
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+.header[data-concept='b'] .count {
+  font-weight: 600;
+}
+
+.header[data-concept='b'] .label {
+  position: relative;
+  text-decoration: none;
+}
+
+.header[data-concept='b'] .label::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -5px;
+  block-size: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 100ms linear;
+}
+
+.header[data-concept='b'] .tool:hover .label::after {
+  transform: scaleX(1);
+}
+
+/* A: glyphs only, as on Christy Ng; the words stay for screen readers. */
+.header[data-concept='a'] .label {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.header[data-concept='a'] .tool:hover {
+  color: var(--action);
+}
+
+.header[data-concept='a'] .bag {
+  gap: 6px;
+}
+
+/* B shows its words from 1024px; below that, glyphs only, as Jimmy Choo's phone header:
+   Menu and Search · the wordmark · Saved and Bag. */
+@media (max-width: 1023px) {
+  .header[data-concept='b'] .label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .wideOnly {
+    display: none;
+  }
+
+  .wordmark,
+  .header[data-concept='b'] .wordmark {
+    font-size: 1.625rem;
+  }
+}

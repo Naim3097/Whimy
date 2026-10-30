@@ -1,0 +1,10 @@
+/* Lines up with the dialog head's 20 / 24px inline padding. */
+.body {
+  padding: var(--s-5) 20px var(--s-7);
+}
+
+@media (min-width: 768px) {
+  .body {
+    padding-inline: var(--s-5);
+  }
+}
